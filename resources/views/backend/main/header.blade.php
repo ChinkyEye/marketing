@@ -16,11 +16,11 @@
     </li>
   </ul>
   <ul class="navbar-nav ml-auto">
-    {{-- <li class="nav-item">
-      <a class="nav-link"  href="{{ route('admin.password.index') }}">
+    <li class="nav-item">
+      <a class="nav-link"  href="">
         <i class="fas fa-key fa-lg"></i>
       </a>
-    </li> --}}
+    </li>
     <li class="nav-item d-none d-sm-inline-block">
       <a href="{{ route('logout') }}"  class="nav-link bg-danger float-right"
       onclick="event.preventDefault();

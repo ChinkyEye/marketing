@@ -17,5 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home', 'Backend\HomeController@index')->name('home');
+Route::namespace('Backend')->prefix('home')->name('admin.')->group(function(){
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('/project', 'ProjectController');
+
+});
+

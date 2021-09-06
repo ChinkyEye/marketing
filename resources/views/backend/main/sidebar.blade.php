@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4 inverted">
   <a href="" class="brand-link">
-    <img src="{{URL::to('/')}}/backend/images/logo.png" alt="AdminLTE Logo" class="brand-image elevation-3" style="opacity: .8">
-  </span>
+   {{--  <img src="{{URL::to('/')}}/backend/images/logo.png" alt="AdminLTE Logo" class="brand-image elevation-3" style="opacity: .8"> --}}
+  </a>
   </a>
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -17,7 +17,14 @@
       </div>
     </div>
     <nav class="mt-2">
-    
+      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="{{ route('admin.project.index')}}" class="nav-link {{ (request()->is('home/main-entry/caste*')) ? 'active' : '' }}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Project</p>
+          </a>
+        </li>
+      </ul>
     </nav>
   </div>
 </aside>
