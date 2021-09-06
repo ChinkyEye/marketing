@@ -82,10 +82,12 @@
         <div class="card">
           <div class="card-header p-2">
             <ul class="nav nav-pills">
-              <li class="nav-item"><a class="nav-link text-primary" href=""><i class="fas fa-backward"> Back</i></a></li>
               <li class="nav-item ml-auto"><a class="nav-link text-primary" href=""><i class="far fa-edit">Add New Schedule</i></a></li>
             </ul>
-          </div><!-- /.card-header -->
+          </div>
+          <div class="card-body">
+            
+          </div>
          {{--  @if($counts > 0)
           <div class="card-body">
             @php
