@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Providers\RouteServiceProvider;
+
 
 class LoginController extends Controller
 {
@@ -35,5 +37,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function redirectPath()
+    {
+        // if (\Auth::user()->user_type == '1' && \Auth::user()->email == 'kerabari@gmail.com') {
+        //     return '/home';
+        // }
+        if (\Auth::user()->user_type == '1') {
+            return '/home';
+        }
+        else{
+            return '/';
+        }
+        return '/';
     }
 }
