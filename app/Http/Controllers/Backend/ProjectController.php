@@ -4,82 +4,117 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Project;
+use Auth;
+use Response;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        return view('backend.project.index');
+        $datas = Project::get();
+        return view('backend.project.index',compact('datas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view('backend.project.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
-        //
+         $this->validate($request, [
+        'name' => 'required',
+        'description' => 'required',
+        ]);
+
+        $project= Project::create([
+        'name' => $request['name'],
+        'description' => $request['description'],
+        'created_by' => Auth::user()->id,
+        'created_at_np' => date("H:i:s"),
+        ]);
+
+        $pass = array(
+          'message' => 'Data added successfully!',
+          'alert-type' => 'success'
+        );
+        return redirect()->route('admin.project.index')->with($pass);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit($id)
     {
-        //
+        $edit = project::find($id);
+        return view('backend.project.edit',compact('edit'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
-        //
+        $data_store =Project::find($id);
+       $data_store->name = $request->name;
+       $data_store->description = $request->description;
+       $data_store->update();
+
+       $notification = array(
+        'message' => $request->class_name.' added successfully!',
+        'alert-type' => 'success'
+    );
+       return Redirect::route('admin.project.index')->with($notification)->withInput();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+   
+    public function destroy(Project $project)
     {
-        //
+        // dd($id);
+        if($project->delete()){
+            $notification = array(
+              'message' => $project->name.' is deleted successfully!',
+              'status' => 'success'
+          );
+        }else{
+            $notification = array(
+              'message' => $project->name.' could not be deleted!',
+              'status' => 'error'
+          );
+        }
+        return back()->with($notification)->withInput();  
+        // return Response::json($notification);
+    }
+
+     public function isActive(Request $request,$id){
+      $get_is_active = Project::where('id',$id)->value('is_active');
+        $isactive = Project::find($id);
+        if($get_is_active == 0){
+        $isactive->is_active = 1;
+        $notification = array(
+          'message' => $isactive->name.' is Active!',
+          'alert-type' => 'success'
+        );
+        }
+        else {
+        $isactive->is_active = 0;
+        $notification = array(
+          'message' => $isactive->name.' is inactive!',
+          'alert-type' => 'error'
+        );
+        }
+        if(!($isactive->update())){
+        $notification = array(
+          'message' => $isactive->name.' could not be changed!',
+          'alert-type' => 'error'
+        );
+        }
+        return back()->with($notification)->withInput();  
     }
 }

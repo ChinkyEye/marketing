@@ -20,6 +20,7 @@ Auth::routes();
 Route::namespace('Backend')->prefix('home')->name('admin.')->middleware(['admin','auth'])->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('/project', 'ProjectController');
+    Route::get('/project/active/{id}', 'ProjectController@isActive')->name('project.active');
 
 });
 Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff','auth'])->group(function(){
