@@ -24,5 +24,7 @@ Route::namespace('Backend')->prefix('home')->name('admin.')->middleware(['admin'
 });
 Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff','auth'])->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('/client', 'ClientController');
+
 });
 

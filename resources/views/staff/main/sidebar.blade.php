@@ -19,7 +19,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="" class="nav-link {{ (request()->is('home/main-entry/caste*')) ? 'active' : '' }}">
+          <a href="{{route('staff.client.index')}}" class="nav-link {{ (request()->is('staff/client*')) ? 'active' : '' }}">
             <i class="far fa-circle nav-icon"></i>
             <p>Client</p>
           </a>
