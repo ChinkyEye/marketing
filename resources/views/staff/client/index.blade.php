@@ -39,6 +39,7 @@
             </a>
           </td>
           <td>
+            <a href="{{ route('staff.client.addinformation',$data->id)}}" class="btn btn-xs btn-outline-info" data-placement="top" title="Add Information"><i class="fas fa-plus"></i></a>
             <a href="{{ route('staff.client.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
             <form action="{{ route('staff.client.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
               {{method_field('delete')}}

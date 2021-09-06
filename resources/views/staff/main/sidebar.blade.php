@@ -23,6 +23,12 @@
             <i class="far fa-circle nav-icon"></i>
             <p>Client</p>
           </a>
+        </li> 
+        <li class="nav-item">
+          <a href="" class="nav-link {{ (request()->is('staff/mediator*')) ? 'active' : '' }}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Mediator</p>
+          </a>
         </li>
       </ul>
     </nav>
