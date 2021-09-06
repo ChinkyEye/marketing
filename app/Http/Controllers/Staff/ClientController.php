@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Client;
 use Auth;
+use Response;
 
 class ClientController extends Controller
 {
@@ -16,8 +17,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::where('is_active',true)
-                            ->get();
+        $clients = Client::get();
         return view('staff.client.index', compact('clients'));
     }
 
@@ -101,8 +101,46 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Client $client)
     {
-        //
+        // dd($id);
+        if($client->delete()){
+            $notification = array(
+              'message' => $client->fullname.' is deleted successfully!',
+              'status' => 'success'
+          );
+        }else{
+            $notification = array(
+              'message' => $client->fullname.' could not be deleted!',
+              'status' => 'error'
+          );
+        }
+        return back()->with($notification)->withInput();  
+        // return Response::json($notification);
+    }
+    public function isActive(Request $request,$id){
+      $get_is_active = Client::where('id',$id)->value('is_active');
+        $isactive = Client::find($id);
+        if($get_is_active == 0){
+        $isactive->is_active = 1;
+        $notification = array(
+          'message' => $isactive->fullname.' is Active!',
+          'alert-type' => 'success'
+        );
+        }
+        else {
+        $isactive->is_active = 0;
+        $notification = array(
+          'message' => $isactive->fullname.' is inactive!',
+          'alert-type' => 'error'
+        );
+        }
+        if(!($isactive->update())){
+        $notification = array(
+          'message' => $isactive->fullname.' could not be changed!',
+          'alert-type' => 'error'
+        );
+        }
+        return back()->with($notification)->withInput();  
     }
 }

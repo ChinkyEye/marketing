@@ -1,6 +1,6 @@
 @extends('staff.main.app')
 @section('content')
-<?php $page = substr((Route::currentRouteName()), 6, strpos(str_replace('admin.','',Route::currentRouteName()), ".")); ?>
+<?php $page = substr((Route::currentRouteName()), 6, strpos(str_replace('staff.','',Route::currentRouteName()), ".")); ?>
 <section class="content-header"></section>
 <section class="content">
   <div class="card">
@@ -34,10 +34,17 @@
           <td>{{$data->address}}</td>
           <td>{{$data->email}}</td>
           <td>
-            
+            <a href="{{route('staff.client.active',$data->id)}}" title="{{ $data->is_active == '1' ? 'Click to deactivate' : 'Click to activate' }}">
+              <i class="fa {{ $data->is_active == '1' ? 'fa-check check-css' : 'fa-times cross-css' }}"></i>
+            </a>
           </td>
           <td>
-            
+            <a href="{{ route('staff.client.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
+            <form action="{{ route('staff.client.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
+              {{method_field('delete')}}
+              {{ csrf_field() }}
+              <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
+            </form>
           </td>
         </tr>
         @endforeach
