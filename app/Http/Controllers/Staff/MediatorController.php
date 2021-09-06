@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Staff;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Client;
-use App\Information;
+use App\Mediator;
 use Auth;
-use Response;
 
-class ClientController extends Controller
+class MediatorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +16,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::get();
-        return view('staff.client.index', compact('clients'));
+        $mediators = Mediator::get();
+        return view('staff.mediator.index', compact('mediators'));
     }
 
     /**
@@ -29,7 +27,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('staff.client.create');
+        return view('staff.mediator.create');
     }
 
     /**
@@ -41,17 +39,13 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-        'fullname' => 'required',
-        'address' => 'required',
+        'name' => 'required',
         'phone' => 'required',
-        'email' => 'required',
         ]);
 
-        $clients= Client::create([
-        'fullname' => $request['fullname'],
+        $mediators= Mediator::create([
+        'name' => $request['name'],
         'phone' => $request['phone'],
-        'email' => $request['email'],
-        'address' => $request['address'],
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);
@@ -59,7 +53,7 @@ class ClientController extends Controller
           'message' => 'Data added successfully!',
           'alert-type' => 'success'
         );
-        return redirect()->route('staff.client.index')->with($pass);
+        return redirect()->route('staff.mediator.index')->with($pass);
     }
 
     /**
@@ -102,26 +96,14 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy($id)
     {
-        // dd($id);
-        if($client->delete()){
-            $notification = array(
-              'message' => $client->fullname.' is deleted successfully!',
-              'status' => 'success'
-          );
-        }else{
-            $notification = array(
-              'message' => $client->fullname.' could not be deleted!',
-              'status' => 'error'
-          );
-        }
-        return back()->with($notification)->withInput();  
-        // return Response::json($notification);
+        //
     }
+
     public function isActive(Request $request,$id){
-      $get_is_active = Client::where('id',$id)->value('is_active');
-        $isactive = Client::find($id);
+      $get_is_active = Mediator::where('id',$id)->value('is_active');
+        $isactive = Mediator::find($id);
         if($get_is_active == 0){
         $isactive->is_active = 1;
         $notification = array(
@@ -143,37 +125,5 @@ class ClientController extends Controller
         );
         }
         return back()->with($notification)->withInput();  
-    }
-
-    public function addinformation(Request $request,$id){
-        $clients = Client::findorFail($id);
-        return view('staff.client.addinformation',compact(['clients','request']));
-    }
-
-    public function storeinformation(Request $request)
-    {
-        $this->validate($request, [
-            'mediator_name' => 'required',
-            'mediator_phone' => 'required',
-        ]);
-        $subs= Information::create([
-            'client_id' => $request['client_id'],
-            'mediator_name' => $request['mediator_name'],
-            'mediator_phone' => $request['mediator_phone'],
-            'first_meeting' => $request['first_meeting'],
-            'next_meeting' => $request['first_meeting'],
-            'c_name' => $request['c_name'],
-            'c_phone' => $request['c_phone'],
-            'c_email' => $request['c_email'],
-            'c_post' => $request['c_post'],
-            'description' => $request['description'],
-            'created_by' => Auth::user()->id,
-            'created_at_np' => date("H:i:s"),
-        ]);
-        $pass = array(
-          'message' => 'Data added successfully!',
-          'alert-type' => 'success'
-        );
-        return redirect()->route('staff.client.index')->with($pass);
     }
 }

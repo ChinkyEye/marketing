@@ -17,8 +17,10 @@ class CreateInformationTable extends Migration
             $table->increments('id');
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->string('mediator_name');
-            $table->string('mediator_phone')->nullable();
+            $table->integer('mediator_id')->unsigned();
+            $table->foreign('mediator_id')->references('id')->on('mediators');
+            // $table->string('mediator_name');
+            // $table->string('mediator_phone')->nullable();
             $table->text('description')->nullable();
             $table->string('first_meeting');
             $table->string('next_meeting')->nullable();

@@ -20,13 +20,13 @@
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
           <a href="{{route('staff.client.index')}}" class="nav-link {{ (request()->is('staff/client*')) ? 'active' : '' }}">
-            <i class="far fa-circle nav-icon"></i>
+            <i class="nav-icon fa fa-th"></i>
             <p>Client</p>
           </a>
         </li> 
         <li class="nav-item">
-          <a href="" class="nav-link {{ (request()->is('staff/mediator*')) ? 'active' : '' }}">
-            <i class="far fa-circle nav-icon"></i>
+          <a href="{{route('staff.mediator.index')}}" class="nav-link {{ (request()->is('staff/mediator*')) ? 'active' : '' }}">
+            <i class="far fa-user nav-icon"></i>
             <p>Mediator</p>
           </a>
         </li>
