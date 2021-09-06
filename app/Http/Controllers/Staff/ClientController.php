@@ -118,6 +118,7 @@ class ClientController extends Controller
         return back()->with($notification)->withInput();  
         // return Response::json($notification);
     }
+    
     public function isActive(Request $request,$id){
       $get_is_active = Client::where('id',$id)->value('is_active');
         $isactive = Client::find($id);
