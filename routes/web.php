@@ -22,4 +22,7 @@ Route::namespace('Backend')->prefix('home')->name('admin.')->middleware(['admin'
     Route::resource('/project', 'ProjectController');
 
 });
+Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff','auth'])->group(function(){
+    Route::get('/', 'HomeController@index')->name('home');
+});
 

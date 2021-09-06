@@ -41,11 +41,11 @@ class LoginController extends Controller
 
     public function redirectPath()
     {
-        // if (\Auth::user()->user_type == '1' && \Auth::user()->email == 'kerabari@gmail.com') {
-        //     return '/home';
-        // }
         if (\Auth::user()->user_type == '1') {
             return '/home';
+        }
+        elseif(\Auth::user()->user_type == '2'){
+            return '/staff';
         }
         else{
             return '/';
