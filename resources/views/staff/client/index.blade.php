@@ -46,7 +46,7 @@
               {{ csrf_field() }}
               <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
             </form>
-            <a href="" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-eye"></i></a>
+            <a href="{{ route('staff.client.show',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-eye"></i></a>
           </td>
         </tr>
         @endforeach
