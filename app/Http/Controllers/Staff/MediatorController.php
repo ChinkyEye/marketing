@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mediator;
 use Auth;
+use Response;
 
 class MediatorController extends Controller
 {
@@ -49,10 +50,12 @@ class MediatorController extends Controller
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);
-        $pass = array(
-          'message' => 'Data added successfully!',
-          'alert-type' => 'success'
-        );
+        if($mediators->save()){
+            $pass = array(
+              'message' => 'Data added successfully!',
+              'alert-type' => 'success'
+          );
+        }
         return redirect()->route('staff.mediator.index')->with($pass);
     }
 
@@ -125,5 +128,14 @@ class MediatorController extends Controller
         );
         }
         return back()->with($notification)->withInput();  
+    }
+
+    public function getMediatorList(Request $request)
+    {
+        $name_id = $request->m_name_id;
+        $mediator_list = Mediator::where('id',$name_id)
+                        ->where('is_active','1')
+                        ->get();
+        return Response::json($mediator_list);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Client;
 use App\Information;
+use App\Mediator;
 use Auth;
 use Response;
 
@@ -146,9 +147,11 @@ class ClientController extends Controller
         return back()->with($notification)->withInput();  
     }
 
-    public function addinformation(Request $request,$id){
+    public function addinformation(Request $request,$id)
+    {
         $clients = Client::findorFail($id);
-        return view('staff.client.addinformation',compact(['clients','request']));
+        $mediators = Mediator::get();
+        return view('staff.client.addinformation',compact(['clients','request','mediators']));
     }
 
     public function storeinformation(Request $request)
@@ -159,22 +162,24 @@ class ClientController extends Controller
         ]);
         $subs= Information::create([
             'client_id' => $request['client_id'],
-            'mediator_name' => $request['mediator_name'],
-            'mediator_phone' => $request['mediator_phone'],
+            'mediator_id' => $request['mediator_name'],
             'first_meeting' => $request['first_meeting'],
             'next_meeting' => $request['first_meeting'],
             'c_name' => $request['c_name'],
             'c_phone' => $request['c_phone'],
             'c_email' => $request['c_email'],
             'c_post' => $request['c_post'],
+            'priority' =>$request['checkbox'],
             'description' => $request['description'],
             'created_by' => Auth::user()->id,
             'created_at_np' => date("H:i:s"),
         ]);
-        $pass = array(
-          'message' => 'Data added successfully!',
-          'alert-type' => 'success'
-        );
+        if($subs->save()){
+            $pass = array(
+              'message' => 'Data added successfully!',
+              'alert-type' => 'success'
+          );
+        }
         return redirect()->route('staff.client.index')->with($pass);
     }
 }
