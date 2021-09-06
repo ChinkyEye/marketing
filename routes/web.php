@@ -27,6 +27,10 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff',
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('/client', 'ClientController');
     Route::get('/client/active/{id}', 'ClientController@isActive')->name('client.active');
+    Route::get('/client/addinformation/{id}', 'ClientController@addinformation')->name('client.addinformation');
+    Route::post('/client/storeinformation', 'ClientController@storeinformation')->name('client.storeinformation');
+    Route::resource('/mediator', 'MediatorController');
+
 
 });
 

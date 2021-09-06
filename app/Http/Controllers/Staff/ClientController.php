@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Client;
+use App\Information;
 use Auth;
 use Response;
 
@@ -143,5 +144,38 @@ class ClientController extends Controller
         );
         }
         return back()->with($notification)->withInput();  
+    }
+
+    public function addinformation(Request $request,$id){
+        $clients = Client::findorFail($id);
+        return view('staff.client.addinformation',compact(['clients','request']));
+    }
+
+    public function storeinformation(Request $request)
+    {
+        // dd($request);
+        $this->validate($request, [
+            'mediator_name' => 'required',
+            'mediator_phone' => 'required',
+        ]);
+        $subs= Information::create([
+            'client_id' => $request['client_id'],
+            'mediator_name' => $request['mediator_name'],
+            'mediator_phone' => $request['mediator_phone'],
+            'first_meeting' => $request['first_meeting'],
+            'next_meeting' => $request['first_meeting'],
+            'c_name' => $request['c_name'],
+            'c_phone' => $request['c_phone'],
+            'c_email' => $request['c_email'],
+            'c_post' => $request['c_post'],
+            'description' => $request['description'],
+            'created_by' => Auth::user()->id,
+            'created_at_np' => date("H:i:s"),
+        ]);
+        $pass = array(
+          'message' => 'Data added successfully!',
+          'alert-type' => 'success'
+        );
+        return redirect()->back()->with($pass);
     }
 }

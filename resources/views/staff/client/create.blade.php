@@ -1,4 +1,4 @@
-@extends('backend.main.app')
+@extends('staff.main.app')
 @section('content')
 <?php $page = substr((Route::currentRouteName()), 6, strpos(str_replace('admin.','',Route::currentRouteName()), ".")); ?>
 <section class="content-header">
