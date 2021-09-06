@@ -25,38 +25,18 @@
           <div class="form-group col-md-6">
             <label for="name">Full Name</label>
             <input type="text"  class="form-control max" id="fullname" placeholder="Enter fullname" name="fullname" autocomplete="off" autofocus>
-            {{-- @error('fullname')
-            <span class="text-danger font-italic" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror --}}
           </div>
           <div class="form-group col-md-6">
             <label for="name">Phone No:</label>
             <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off" autofocus>
-            {{-- @error('phone')
-            <span class="text-danger font-italic" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror --}}
           </div>
           <div class="form-group col-md-6">
             <label for="name">Address</label>
             <input type="text"  class="form-control max" id="address" placeholder="Enter the address" name="address" autocomplete="off" autofocus>
-            {{-- @error('address')
-            <span class="text-danger font-italic" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror --}}
           </div>
           <div class="form-group col-md-6">
             <label for="name">Email</label>
             <input type="text"  class="form-control max" id="email" placeholder="Enter email" name="email" autocomplete="off" autofocus>
-           {{--  @error('email')
-            <span class="text-danger font-italic" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror --}}
           </div>
       </div>
       </div>

@@ -26,7 +26,7 @@ class ProjectController extends Controller
    
     public function store(Request $request)
     {
-         $this->validate($request, [
+        $this->validate($request, [
         'name' => 'required',
         'description' => 'required',
         ]);
@@ -37,11 +37,12 @@ class ProjectController extends Controller
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);
-
-        $pass = array(
-          'message' => 'Data added successfully!',
-          'alert-type' => 'success'
-        );
+        if($project->save()){
+            $pass = array(
+              'message' => 'Data added successfully!',
+              'alert-type' => 'success'
+            );
+        }
         return redirect()->route('admin.project.index')->with($pass);
     }
 
@@ -54,7 +55,7 @@ class ProjectController extends Controller
    
     public function edit($id)
     {
-        $edit = project::find($id);
+        $edit = Project::find($id);
         return view('backend.project.edit',compact('edit'));
     }
 
@@ -62,15 +63,21 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $data_store =Project::find($id);
-       $data_store->name = $request->name;
-       $data_store->description = $request->description;
-       $data_store->update();
-
-       $notification = array(
-        'message' => $request->class_name.' added successfully!',
-        'alert-type' => 'success'
-    );
-       return Redirect::route('admin.project.index')->with($notification)->withInput();
+        $data_store->name = $request->name;
+        $data_store->description = $request->description;
+        $data_store->update();
+        if($data_store->update()){
+            $notification = array(
+                'message' => $request->name.' updated successfully!',
+                'alert-type' => 'success'
+            );
+        }else{
+            $notification = array(
+                'message' => 'Data could not be updated!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect()->route('admin.project.index')->with($notification);
     }
 
    

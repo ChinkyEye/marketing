@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6 pl-1">
-        <h1 class="text-capitalize">Add Client {{-- {{ $page }} --}}</h1>
+        <h1 class="text-capitalize">Add Project{{-- {{ $page }} --}}</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -22,14 +22,15 @@
       <div class="card-body">
         {{ csrf_field() }}
         <div class="row">
-          <div class="form-group col-md-6">
-            <label for="name">Full Name</label>
-            <input type="text"  class="form-control max" id="name" placeholder="Enter name" name="name" autocomplete="off" autofocus>
+          <div class="form-group col-md-12">
+            <label for="name">Project Name <span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="name" placeholder="Enter project name" name="name" autocomplete="off" autofocus>
           </div>
           
-          <div class="form-group col-md-6">
-            <label for="name">Description</label>
-            <input type="text"  class="form-control max" id="description" placeholder="Enter the description" name="description" autocomplete="off" autofocus>
+          <div class="form-group col-md-12">
+            <label for="name">Description <span class="text-danger">*</span></label>
+            <textarea class="form-control max" id="description" name="description" rows="4" cols="50" ></textarea>
+            {{-- <input type="text"  class="form-control max" id="description" placeholder="Enter the description" name="description" autocomplete="off" autofocus> --}}
           </div>
       </div>
       </div>
@@ -46,10 +47,12 @@
 $().ready(function() {
   $("#validate").validate({
     rules: {
-      name: "required"
+      name: "required",
+      description: "required"
     },
     messages: {
-      name: " name field is required **"
+      name: " name field is required **",
+      description: " description field is required **"
     },
     highlight: function(element) {
      $(element).css('background', '#ffdddd');
