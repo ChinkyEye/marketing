@@ -39,12 +39,19 @@
             <legend  class="w-auto"><small class="mx-2 text-info">Mediator.</small></legend>
             <div class="row">
               <div class="form-group col">
-                <label for="dob">Full Name<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="mediator_name" name="mediator_name" autocomplete="off" value="{{ old('mediator_name') }}">
+                <label for="name_data" class="control-label">Full Name<span class="text-danger">*</span></label>
+                <select class="form-control" name="mediator_name" id="name_data">
+                  <option value="">Select Mediator</option>
+                  @foreach ($mediators as $key => $mediator)
+                  <option value="{{ $mediator->id }}" >
+                    {{$mediator->name}}
+                  </option>
+                  @endforeach
+                </select>
               </div>
               <div class="form-group col">
-                <label for="dob">Phone No:</label>
-                <input type="text" class="form-control" id="mediator_phone" name="mediator_phone" autocomplete="off" value="{{ old('mediator_phone') }}">
+                <label for="phone_data" class="control-label ">Phone No:</label>
+                <input type="text"  class="form-control max" id="phone_data" placeholder="Enter phone no" name="mediator_phone" readonly="true">
               </div>
             </div>
           </fieldset>
@@ -82,6 +89,21 @@
             <textarea  class="form-control max" id="description" name="description" rows="4" cols="50">
             </textarea>
           </div>
+          <div class="form-group col-md-12">
+            <label>Priority</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="checkbox" value="1">
+              <label class="form-check-label">High</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="checkbox" value="2">
+              <label class="form-check-label">Medium</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="checkbox" value="3">
+              <label class="form-check-label">Low</label>
+            </div> 
+          </div>
       </div>
       </div>
       <div class="card-footer justify-content-between">
@@ -109,6 +131,54 @@ $(document).ready(function(){
     ndpYearCount: 10,
     // disableAfter: currentDate,
     });
+  });
+</script>
+<script src="{{URL::to('/')}}/backend/js/jquery.validate.js"></script>
+<script>
+$().ready(function() {
+  $("#validate").validate({
+    rules: {
+      fullname: "required",
+    },
+    messages: {
+      fullname: "name field is required",
+    },
+    highlight: function(element) {
+     $(element).css('background', '#ffdddd');
+     $(element).css('border-color', 'red');
+    },
+    unhighlight: function(element) {
+     $(element).css('background', '#ffffff');
+     $(element).css('border-color', 'green');
+    }
+  });
+});
+</script>
+<script type="text/javascript">
+  $("body").on("change","#name_data", function(event){
+    Pace.start();
+    var m_name_id = $('#name_data').val(),
+        token = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+      type:"POST",
+      dataType:"JSON",
+      url:"{{route('staff.getMediatorList')}}",
+      data:{
+        _token: token,
+        m_name_id: m_name_id
+      },
+      success: function(response){
+        console.log(response);
+        $.each( response, function( i, val ) {
+             $('#phone_data').val(val.phone);
+        });
+     
+      },
+      error: function(event){
+        alert("Sorry");
+      }
+    });
+        Pace.stop();
   });
 </script>
 @endpush

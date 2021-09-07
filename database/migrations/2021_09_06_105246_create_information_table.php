@@ -17,8 +17,8 @@ class CreateInformationTable extends Migration
             $table->increments('id');
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->string('mediator_name');
-            $table->string('mediator_phone')->nullable();
+            $table->integer('mediator_id')->unsigned();
+            $table->foreign('mediator_id')->references('id')->on('mediators');
             $table->text('description')->nullable();
             $table->string('first_meeting');
             $table->string('next_meeting')->nullable();
@@ -26,7 +26,7 @@ class CreateInformationTable extends Migration
             $table->string('c_phone')->nullable();
             $table->string('c_gmail')->nullable();
             $table->string('c_post')->nullable();
-            $table->integer('priority')->nullable();
+            $table->integer('priority')->nullable(); //1 for high 2 for medium  3 for low
             $table->integer('sort_id')->nullable();
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->unsigned();

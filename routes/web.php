@@ -25,12 +25,16 @@ Route::namespace('Backend')->prefix('home')->name('admin.')->middleware(['admin'
 });
 Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff','auth'])->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
+    //client
     Route::resource('/client', 'ClientController');
     Route::get('/client/active/{id}', 'ClientController@isActive')->name('client.active');
     Route::get('/client/addinformation/{id}', 'ClientController@addinformation')->name('client.addinformation');
     Route::post('/client/storeinformation', 'ClientController@storeinformation')->name('client.storeinformation');
+    
+    //mediator
     Route::resource('/mediator', 'MediatorController');
-
+    Route::get('/mediator/active/{id}', 'MediatorController@isActive')->name('mediator.active');
+    Route::post('/mediator/getMediatorList', 'MediatorController@getMediatorList')->name('getMediatorList');
 
 });
 

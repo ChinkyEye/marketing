@@ -19,8 +19,8 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="{{ route('admin.project.index')}}" class="nav-link {{ (request()->is('home/main-entry/caste*')) ? 'active' : '' }}">
-            <i class="far fa-circle nav-icon"></i>
+          <a href="{{ route('admin.project.index')}}" class="nav-link {{ (request()->is('home/project*')) ? 'active' : '' }}">
+            <i class="fas fa-tasks nav-icon"></i>
             <p>Project</p>
           </a>
         </li>

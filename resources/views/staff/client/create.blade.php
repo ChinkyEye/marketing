@@ -23,40 +23,20 @@
         {{ csrf_field() }}
         <div class="row">
           <div class="form-group col-md-6">
-            <label for="name">Full Name</label>
-            <input type="text"  class="form-control max" id="fullname" placeholder="Enter fullname" name="fullname" autocomplete="off" autofocus>
-            {{-- @error('fullname')
-            <span class="text-danger font-italic" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror --}}
+            <label for="name">Full Name <span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="fullname" placeholder="Enter fullname" name="fullname" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
             <label for="name">Phone No:</label>
-            <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off" autofocus>
-            {{-- @error('phone')
-            <span class="text-danger font-italic" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror --}}
+            <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
             <label for="name">Address</label>
-            <input type="text"  class="form-control max" id="address" placeholder="Enter the address" name="address" autocomplete="off" autofocus>
-            {{-- @error('address')
-            <span class="text-danger font-italic" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror --}}
+            <input type="text"  class="form-control max" id="address" placeholder="Enter the address" name="address" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
             <label for="name">Email</label>
-            <input type="text"  class="form-control max" id="email" placeholder="Enter email" name="email" autocomplete="off" autofocus>
-           {{--  @error('email')
-            <span class="text-danger font-italic" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror --}}
+            <input type="text"  class="form-control max" id="email" placeholder="Enter email" name="email" autocomplete="off">
           </div>
       </div>
       </div>
@@ -73,10 +53,10 @@
 $().ready(function() {
   $("#validate").validate({
     rules: {
-      name: "required"
+      fullname: "required",
     },
     messages: {
-      name: " name field is required **"
+      fullname: "name field is required",
     },
     highlight: function(element) {
      $(element).css('background', '#ffdddd');
