@@ -18,9 +18,9 @@
 </section>
 <section class="content">
   <div class="card card-info">
-    <form role="form" method="POST" action="{{route('admin.project.update',$edit->id)}}" class="validate" id="validate">
+    <form role="form" method="POST" action="" class="validate" id="validate">
+      {{ csrf_field() }}
       <div class="card-body">
-        {{ csrf_field() }}
         <div class="row">
           <div class="form-group col-md-6">
             <label for="name">Full Name</label>
@@ -34,7 +34,6 @@
       </div>
       </div>
       <div class="card-footer justify-content-between">
-        
         <button type="submit" class="btn btn-info text-capitalize">Update</button>
       </div>
     </form>

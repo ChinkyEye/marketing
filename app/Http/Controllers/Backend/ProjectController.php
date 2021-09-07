@@ -61,7 +61,7 @@ class ProjectController extends Controller
     
     public function update(Request $request, $id)
     {
-        $data_store =Project::find($id);
+       $data_store =Project::find($id);
        $data_store->name = $request->name;
        $data_store->description = $request->description;
        $data_store->update();
@@ -69,7 +69,7 @@ class ProjectController extends Controller
        $notification = array(
         'message' => $request->class_name.' added successfully!',
         'alert-type' => 'success'
-    );
+        );
        return Redirect::route('admin.project.index')->with($notification)->withInput();
     }
 
