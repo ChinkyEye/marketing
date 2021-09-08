@@ -56,28 +56,18 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $edit = Project::find($id);
+        // dd($edit->id);
         return view('backend.project.edit',compact('edit'));
     }
 
     
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
-       $data_store =Project::find($id);
-       $data_store->name = $request->name;
-       $data_store->description = $request->description;
-       $data_store->update();
-
-       $notification = array(
-        'message' => $request->class_name.' added successfully!',
-        'alert-type' => 'success'
-        );
-       return Redirect::route('admin.project.index')->with($notification)->withInput();
-=======
+        // dd('gg');
         $data_store =Project::find($id);
         $data_store->name = $request->name;
         $data_store->description = $request->description;
-        $data_store->update();
+        // $data_store->update();
         if($data_store->update()){
             $notification = array(
                 'message' => $request->name.' updated successfully!',
@@ -90,7 +80,6 @@ class ProjectController extends Controller
             );
         }
         return redirect()->route('admin.project.index')->with($notification);
->>>>>>> 37a2d5a672c09ecb5d31511bf793deec4b2bfdb4
     }
 
    

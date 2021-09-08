@@ -18,7 +18,7 @@
         <thead class="bg-dark">
           <tr class="text-center">
             <th>SN</th>
-            <th>Full Name</th>
+            <th>Project Name</th>
             <th class="text-left">Project</th>
             <th width="10">Sort</th>
             <th width="100">Action</th>

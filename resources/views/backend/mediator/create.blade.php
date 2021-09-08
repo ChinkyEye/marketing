@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6 pl-1">
-        <h1 class="text-capitalize">Edit Project {{-- {{ $page }} --}}</h1>
+        <h1 class="text-capitalize">Add Mediator</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -18,25 +18,22 @@
 </section>
 <section class="content">
   <div class="card card-info">
-    <form role="form" method="POST" action="{{ route('admin.project.update',$edit->id) }}" class="validate" id="validate">
-      {{ csrf_field() }}
-      <input name="_method" type="hidden" value="PATCH">
+    <form role="form" method="POST" action="{{route('admin.mediator.store')}}" class="validate" id="validate">
       <div class="card-body">
+        {{ csrf_field() }}
         <div class="row">
-          <div class="form-group col-md-12">
-            <label for="name">Project Name <span class="text-danger">*</span></label>
-            <input type="text"  class="form-control max" id="name" placeholder="Enter name" name="name" autocomplete="off" autofocus value="{{$edit->name}}">
+          <div class="form-group col-md-6">
+            <label for="name">Full Name <span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="name" placeholder="Enter fullname" name="name" autocomplete="off" autofocus>
           </div>
-          
-          <div class="form-group col-md-12">
-            <label for="name">Description <span class="text-danger">*</span></label>
-            <textarea class="form-control max" id="description" name="description" rows="4" cols="50" >{{$edit->description}}</textarea>
-            {{-- <input type="text"  class="form-control max" id="description" placeholder="Enter the description" name="description" autocomplete="off" autofocus value="{{$edit->description}}"> --}}
+          <div class="form-group col-md-6">
+            <label for="name">Phone No:</label>
+            <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off" autofocus>
           </div>
-        </div>
+      </div>
       </div>
       <div class="card-footer justify-content-between">
-        <button type="submit" class="btn btn-info text-capitalize">Update</button>
+        <button type="submit" class="btn btn-info text-capitalize">Save</button>
       </div>
     </form>
   </div>

@@ -18,20 +18,28 @@
 </section>
 <section class="content">
   <div class="card card-info">
-    <form role="form" method="POST" action="{{ route('admin.project.update',$edit->id) }}" class="validate" id="validate">
+    <form role="form" method="POST" action="{{ route('admin.mediator.update',$edit->id) }}" class="validate" id="validate">
       {{ csrf_field() }}
       <input name="_method" type="hidden" value="PATCH">
       <div class="card-body">
         <div class="row">
-          <div class="form-group col-md-12">
+          {{-- <div class="form-group col-md-12">
             <label for="name">Project Name <span class="text-danger">*</span></label>
             <input type="text"  class="form-control max" id="name" placeholder="Enter name" name="name" autocomplete="off" autofocus value="{{$edit->name}}">
+          </div> --}}
+          <div class="form-group col-md-6">
+            <label for="name">Full Name <span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="name" placeholder="Enter fullname" name="name" autocomplete="off" autofocus value="{{$edit->name}}">
           </div>
           
-          <div class="form-group col-md-12">
+          {{-- <div class="form-group col-md-12">
             <label for="name">Description <span class="text-danger">*</span></label>
             <textarea class="form-control max" id="description" name="description" rows="4" cols="50" >{{$edit->description}}</textarea>
-            {{-- <input type="text"  class="form-control max" id="description" placeholder="Enter the description" name="description" autocomplete="off" autofocus value="{{$edit->description}}"> --}}
+           
+          </div> --}}
+          <div class="form-group col-md-6">
+            <label for="name">Phone No:</label>
+            <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off" autofocus value="{{$edit->phone}}" >
           </div>
         </div>
       </div>

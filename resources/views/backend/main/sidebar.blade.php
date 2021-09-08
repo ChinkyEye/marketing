@@ -26,5 +26,25 @@
         </li>
       </ul>
     </nav>
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="{{ route('admin.mediator.index')}}" class="nav-link {{ (request()->is('home/mediator*')) ? 'active' : '' }}">
+            <i class="fas fa-tasks nav-icon"></i>
+            <p>Mediator</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    {{-- <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="{{route('admin.mediator.index')}}" class="nav-link {{ (request()->is('home/mediator*')) ? 'active' : '' }}">
+            <i class="far fa-user nav-icon"></i>
+            <p>Mediator</p>
+          </a>
+        </li>
+      </ul>
+    </nav> --}}
   </div>
 </aside>
