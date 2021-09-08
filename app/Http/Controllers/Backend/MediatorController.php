@@ -21,13 +21,14 @@ class MediatorController extends Controller
    
     public function create()
     {
-        // dd('kk');
+        // dd('hh');
         return view('backend.mediator.create');
     }
 
  
     public function store(Request $request)
     {
+        // dd("lol");
          $this->validate($request, [
         'name' => 'required',
         'phone' => 'required',
@@ -35,6 +36,8 @@ class MediatorController extends Controller
 
         $mediators= Mediator::create([
         'name' => $request['name'],
+        'address' => $request['address'],
+        'email' => $request['email'],
         'phone' => $request['phone'],
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),

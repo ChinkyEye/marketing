@@ -16,6 +16,8 @@ class CreateMediatorsTable extends Migration
         Schema::create('mediators', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('address');
+            $table->string('email');
             $table->string('phone')->nullable();
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->unsigned();
