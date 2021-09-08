@@ -18,7 +18,7 @@
         <thead class="bg-dark">
           <tr class="text-center">
             <th width="5%">SN</th>
-            <th>Full Name</th>
+            <th>Full Name sss</th>
             <th>Phone No</th>
             <th>Status</th>
             <th>Action</th>
