@@ -56,7 +56,7 @@
           </div>
         </div>
 
-        <div class="card card-primary card-outline">
+        {{-- <div class="card card-primary card-outline">
           <div class="card-body box-profile">
             <div class="text-center">
               <span>Contact Person Detail</span>
@@ -78,7 +78,7 @@
               </li>
             </ul>
           </div>
-        </div>
+        </div> --}}
       </div>
       <!-- /.col -->
       <div class="col-md-9">
@@ -86,8 +86,8 @@
           <div class="card-header p-2">
             <ul class="nav nav-pills">
               <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Next Meeting</a></li>
-              <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-              <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+              <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Contact Person</a></li>
+              <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">New Schedule</a></li>
             </ul>
           </div><!-- /.card-header -->
           <div class="card-body">
@@ -194,140 +194,57 @@
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="timeline">
-                <!-- The timeline -->
-                <div class="timeline timeline-inverse">
-                  <!-- timeline time label -->
+                <div class="">
+                {{-- <div class="timeline timeline-inverse"> --}}
                   <div class="time-label">
-                    <span class="bg-danger">
-                      10 Feb. 2014
+                    <span class="text-info">
+                      Contact Person Detail
                     </span>
                   </div>
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-                  <div>
-                    <i class="fas fa-envelope bg-primary"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                      <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                      <div class="timeline-body">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
-                      </div>
-                      <div class="timeline-footer">
-                        <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END timeline item -->
-                  <!-- timeline item -->
-                  <div>
-                    <i class="fas fa-user bg-info"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                      <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                      </h3>
-                    </div>
-                  </div>
-                  <!-- END timeline item -->
-                  <!-- timeline item -->
-                  <div>
-                    <i class="fas fa-comments bg-warning"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                      <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                      <div class="timeline-body">
-                        Take me to your leader!
-                        Switzerland is small and neutral!
-                        We are more like Germany, ambitious and misunderstood!
-                      </div>
-                      <div class="timeline-footer">
-                        <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END timeline item -->
-                  <!-- timeline time label -->
-                  <div class="time-label">
-                    <span class="bg-success">
-                      3 Jan. 2014
-                    </span>
-                  </div>
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-                  <div>
-                    <i class="fas fa-camera bg-purple"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                      <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                      <div class="timeline-body">
-                        <img src="https://placehold.it/150x100" alt="...">
-                        <img src="https://placehold.it/150x100" alt="...">
-                        <img src="https://placehold.it/150x100" alt="...">
-                        <img src="https://placehold.it/150x100" alt="...">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END timeline item -->
-                  <div>
-                    <i class="far fa-clock bg-gray"></i>
-                  </div>
+                  <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                      <b>Full Name</b> <a class="float-right">{{$clients->getInformation->c_name}}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Contact No</b> <a class="float-right">{{$clients->getInformation->c_phone}}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Email</b> <a class="float-right">{{$clients->getInformation->c_gmail}}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Post</b> <a class="float-right">{{$clients->getInformation->c_post}}</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="settings">
-                <form class="form-horizontal">
+                <form class="form-horizontal" role="form" method="POST" action="{{route('staff.schedule.store')}}" class="validate" id="validate">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="client_id" value="{{$clients->id}}">
                   <div class="form-group row">
-                    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                    <label for="inputName" class="col-sm-2 col-form-label">Conclusion</label>
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputName" placeholder="Name">
+                      <textarea class="form-control" id="conclusion" rows="2" cols="20" id="conclusion" name="conclusion"></textarea>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Schedule Date</label>
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                      <input type="text" class="form-control" id="date" name="date" placeholder="Email">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Schedule Time</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                      <input type="time" class="form-control" id="time" name="time" placeholder="Time">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
+                    <label for="inputName2" class="col-sm-2 col-form-label">Next Meeting Date</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                        </label>
-                      </div>
+                      <input type="text" class="form-control" id="next_date" name="next_date" placeholder="Name">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -353,14 +270,14 @@
 <script type="text/javascript">
 $(document).ready(function(){
   var currentDate = NepaliFunctions.ConvertDateFormat(NepaliFunctions.GetCurrentBsDate(), "YYYY-MM-DD");
-  $('#first_meeting').val(currentDate);
-  $('#next_meeting').val(currentDate);
-  $('#first_meeting').nepaliDatePicker({
+  $('#date').val(currentDate);
+  $('#next_date').val(currentDate);
+  $('#date').nepaliDatePicker({
     ndpYear: true,
     ndpMonth: true,
     disableAfter: currentDate,
     });
-  $('#next_meeting').nepaliDatePicker({
+  $('#next_date').nepaliDatePicker({
     ndpYear: true,
     ndpMonth: true,
     ndpYearCount: 10,

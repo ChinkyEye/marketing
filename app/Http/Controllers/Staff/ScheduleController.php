@@ -52,6 +52,8 @@ class ScheduleController extends Controller
         'client_id' => $request['client_id'],
         'conclusion' => $request['conclusion'],
         'date' => $request['date'],
+        'time' => $request['time'],
+        'naxt_date' => $request['next_date'],
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);

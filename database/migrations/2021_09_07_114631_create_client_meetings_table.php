@@ -15,10 +15,6 @@ class CreateClientMeetingsTable extends Migration
     {
         Schema::create('client_meetings', function (Blueprint $table) {
             $table->increments('id');
-            // $table->integer('client_id')->unsigned();
-            // $table->foreign('client_id')->references('id')->on('clients');
-            // $table->integer('mediator_id')->unsigned();
-            // $table->foreign('mediator_id')->references('id')->on('mediators');
             $table->text('description')->nullable();
             $table->string('c_name');
             $table->integer('priority')->nullable(); //1 for high 2 for medium  3 for low
