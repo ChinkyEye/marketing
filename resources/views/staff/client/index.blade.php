@@ -56,30 +56,3 @@
   </div>
 </section>
 @endsection
-@push('javascript')
-<script src="{{URL::to('/')}}/backend/js/jquery.validate.js"></script>
-<script>
-$().ready(function() {
-  $("#validate").validate({
-    rules: {
-      fullname: "required",
-      description: "required",
-      allocated_time: "required",
-    },
-    messages: {
-      fullname: "name field is required",
-      description: "description field is required",
-      allocated_time: "time field is required",
-    },
-    highlight: function(element) {
-     $(element).css('background', '#ffdddd');
-     $(element).css('border-color', 'red');
-    },
-    unhighlight: function(element) {
-     $(element).css('background', '#ffffff');
-     $(element).css('border-color', 'green');
-    }
-  });
-});
-</script>
-@endpush

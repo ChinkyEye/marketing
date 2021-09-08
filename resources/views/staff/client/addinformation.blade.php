@@ -74,7 +74,7 @@
           <fieldset class="border border-info container-fluid col-md-12 p-2 mb-2">
             <legend  class="w-auto"><small class="mx-2 text-info">Contact Person</small></legend>
             <div class="row">
-              <div class="form-group col">
+              {{-- <div class="form-group col">
                 <label for="name_data" class="control-label">Full Name<span class="text-danger">*</span></label>
                 <select class="form-control" name="contact_name" id="contact_data">
                   <option value="">Select Contact Person</option>
@@ -84,18 +84,22 @@
                   </option>
                   @endforeach
                 </select>
+              </div> --}}
+              <div class="form-group col">
+                <label for="phone_data" class="control-label ">Full Name:</label>
+                <input type="text"  class="form-control max" id="contact_data" placeholder="Enter phone no" name="contact_name" >
               </div>
               <div class="form-group col">
                 <label for="phone_data" class="control-label ">Phone No:</label>
-                <input type="text"  class="form-control max" id="c_phone_data" placeholder="Enter phone no" name="c_phone" readonly="true">
+                <input type="text"  class="form-control max" id="c_phone_data" placeholder="Enter phone no" name="c_phone" >
               </div>
               <div class="form-group col">
                 <label for="phone_data" class="control-label ">Email:</label>
-                <input type="text"  class="form-control max" id="c_email_data" placeholder="Enter phone no" name="c_email" readonly="true">
+                <input type="text"  class="form-control max" id="c_email_data" placeholder="Enter phone no" name="c_email" >
               </div>
               <div class="form-group col">
                 <label for="phone_data" class="control-label ">Post:</label>
-                <input type="text"  class="form-control max" id="c_post_data" placeholder="Enter phone no" name="c_post" readonly="true">
+                <input type="text"  class="form-control max" id="c_post_data" placeholder="Enter phone no" name="c_post" >
               </div>
             </div>
           </fieldset>

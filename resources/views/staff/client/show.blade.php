@@ -33,12 +33,15 @@
             <h3 class="card-title">About Mediator</h3>
           </div>
           <div class="card-body">
+            {{-- @if($mediators == null) --}}
+            @if($clients->getMediator)
             <strong><i class="fas fa-user-tie mr-1"></i>Name</strong>
             <p class="text-muted">{{$clients->getInformation->getMediator->name}}</p>
             <hr>
             <strong><i class="fas fa-phone-volume mr-1"></i>Number</strong>
             <p class="text-muted">{{$clients->getInformation->getMediator->phone}}</p>
             <hr>
+            @endif
           </div>
         </div>
       </div>
@@ -58,7 +61,9 @@
               <div class="active tab-pane" id="activity">
                 <div class="my-3">
                   <li class="list-group-item">
+                    @if($clients->getInformation)
                     <b>Conclusion:</b> <a class="float-right col-md-6">{{$clients->getInformation->first()->description}}</a>
+                    @endif
                   </li>
                 </div>
                 <div class="table-responsive">
@@ -92,6 +97,7 @@
                     </span>
                   </div>
                   <ul class="list-group list-group-unbordered mb-3">
+                    @if($clients->getInformation)
                     <li class="list-group-item">
                       <b> Full Name</b> <a class="float-right">{{$clients->getInformation->c_name}}</a>
                     </li>
@@ -104,6 +110,7 @@
                     <li class="list-group-item">
                       <b> Post</b> <a class="float-right">{{$clients->getInformation->c_post}}</a>
                     </li>
+                    @endif
                   </ul>
                 </div>
               </div>

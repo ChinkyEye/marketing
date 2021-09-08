@@ -75,8 +75,10 @@ class ClientController extends Controller
     public function show($id)
     {
         $clients = Client::findorFail($id);
+        $mediators = Mediator::get();
+        // dd($mediators);
         $conclusions = Information::where('created_by', Auth::user()->id)->get();
-        return view('staff.client.show',compact(['clients','conclusions']));
+        return view('staff.client.show',compact(['clients','conclusions','mediators']));
     }
 
     /**
@@ -166,9 +168,18 @@ class ClientController extends Controller
             'mediator_name' => 'required',
             'mediator_phone' => 'required',
         ]);
+        $contact = Contact::create([
+            'c_name' => $request['description'],
+            'c_phone' => $request['c_phone'],
+            'c_email' => $request['c_email'],
+            'c_post' => $request['c_post'],
+            'c_name' => $request['contact_name'],
+            'created_by' => Auth::user()->id,
+            'created_at_np' => date("H:i:s"),
+        ]);
         $subs= Information::create([
             'client_id' => $request['client_id'],
-            'contact_id' => $request['contact_name'],
+            'contact_id' => $contact->id,
             'mediator_id' => $request['mediator_name'],
             'first_meeting' => $request['first_meeting'],
             'next_meeting' => $request['first_meeting'],
