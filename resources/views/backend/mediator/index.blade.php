@@ -18,7 +18,9 @@
         <thead class="bg-dark">
           <tr class="text-center">
             <th width="5%">SN</th>
-            <th>Full Namess</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
             <th>Phone No</th>
             {{-- <th>Status</th> --}}
             <th>Action</th>
@@ -28,6 +30,8 @@
         <tr class="text-center">
           <td>{{$key+1}}</td>
           <td>{{$data->name}}</td>
+          <td>{{$data->address}}</td>
+          <td>{{$data->email}}</td>
           <td>{{$data->phone}}</td>
           {{-- <td>
             <a href="{{route('staff.mediator.active',$data->id)}}" title="{{ $data->is_active == '1' ? 'Click to deactivate' : 'Click to activate' }}">

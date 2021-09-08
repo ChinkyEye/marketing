@@ -27,6 +27,14 @@
             <input type="text"  class="form-control max" id="name" placeholder="Enter fullname" name="name" autocomplete="off" autofocus>
           </div>
           <div class="form-group col-md-6">
+            <label for="address">Address<span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="address" placeholder="Enter address" name="address" autocomplete="off" autofocus>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="email">Email<span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="email" placeholder="Enter email" name="email" autocomplete="off" autofocus>
+          </div>
+          <div class="form-group col-md-6">
             <label for="name">Phone No:</label>
             <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off" autofocus>
           </div>
