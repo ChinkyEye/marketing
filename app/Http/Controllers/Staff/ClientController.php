@@ -19,7 +19,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::get();
+        $clients = Client::where('created_by',Auth::user()->id)
+                            ->get();
         return view('staff.client.index', compact('clients'));
     }
 

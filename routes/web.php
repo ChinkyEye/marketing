@@ -36,5 +36,9 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff',
     Route::get('/mediator/active/{id}', 'MediatorController@isActive')->name('mediator.active');
     Route::post('/mediator/getMediatorList', 'MediatorController@getMediatorList')->name('getMediatorList');
 
+    //Schedule
+    Route::get('schedule/addschedule','ScheduleController@addschedule')->name('addschedule');
+    Route::resource('schedule','ScheduleController');
+
 });
 
