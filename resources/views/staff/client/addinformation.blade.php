@@ -63,24 +63,39 @@
             <label for="name">Next Meeting</label>
             <input type="text"  class="form-control max" id="next_meeting" placeholder="Enter the address" name="next_meeting" autocomplete="off" autofocus>
           </div>
+          <div class="form-group col-md-6">
+            <label for="name">Spend Time<span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="spend_time" placeholder="Enter time spend" name="spend_time" autocomplete="off" autofocus>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="name">Time<span class="text-danger">*</span></label>
+            <input type="time"  class="form-control max" id="time" placeholder="Enter time spend" name="time" autocomplete="off" autofocus>
+          </div>
           <fieldset class="border border-info container-fluid col-md-12 p-2 mb-2">
             <legend  class="w-auto"><small class="mx-2 text-info">Contact Person</small></legend>
             <div class="row">
               <div class="form-group col">
-                <label for="dob">Full Name<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="c_name" name="c_name" autocomplete="off" value="{{ old('c_name') }}">
+                <label for="name_data" class="control-label">Full Name<span class="text-danger">*</span></label>
+                <select class="form-control" name="contact_name" id="contact_data">
+                  <option value="">Select Contact Person</option>
+                  @foreach ($contacts as $key => $contact)
+                  <option value="{{ $contact->id }}" >
+                    {{$contact->c_name}}
+                  </option>
+                  @endforeach
+                </select>
               </div>
               <div class="form-group col">
-                <label for="dob">Phone No:</label>
-                <input type="text" class="form-control" id="c_phone" name="c_phone" autocomplete="off" value="{{ old('c_phone') }}">
+                <label for="phone_data" class="control-label ">Phone No:</label>
+                <input type="text"  class="form-control max" id="c_phone_data" placeholder="Enter phone no" name="c_phone" readonly="true">
               </div>
               <div class="form-group col">
-                <label for="dob">Gmail:</label>
-                <input type="text" class="form-control" id="c_gmail" name="c_gmail" autocomplete="off" value="{{ old('c_gmail') }}">
+                <label for="phone_data" class="control-label ">Email:</label>
+                <input type="text"  class="form-control max" id="c_email_data" placeholder="Enter phone no" name="c_email" readonly="true">
               </div>
               <div class="form-group col">
-                <label for="dob">Post:</label>
-                <input type="text" class="form-control" id="c_post" name="c_post" autocomplete="off" value="{{ old('c_post') }}">
+                <label for="phone_data" class="control-label ">Post:</label>
+                <input type="text"  class="form-control max" id="c_post_data" placeholder="Enter phone no" name="c_post" readonly="true">
               </div>
             </div>
           </fieldset>
@@ -171,6 +186,35 @@ $().ready(function() {
         console.log(response);
         $.each( response, function( i, val ) {
              $('#phone_data').val(val.phone);
+        });
+     
+      },
+      error: function(event){
+        alert("Sorry");
+      }
+    });
+        Pace.stop();
+  });
+</script>
+<script type="text/javascript">
+  $("body").on("change","#contact_data", function(event){
+    Pace.start();
+    var c_name_id = $('#contact_data').val(),
+        token = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+      type:"POST",
+      dataType:"JSON",
+      url:"{{route('staff.getContactList')}}",
+      data:{
+        _token: token,
+        c_name_id: c_name_id
+      },
+      success: function(response){
+        console.log(response);
+        $.each( response, function( i, val ) {
+             $('#c_phone_data').val(val.c_phone);
+             $('#c_email_data').val(val.c_email);
+             $('#c_post_data').val(val.c_post);
         });
      
       },

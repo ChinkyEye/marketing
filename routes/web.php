@@ -44,5 +44,11 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff',
     Route::get('schedule/addschedule','ScheduleController@addschedule')->name('addschedule');
     Route::resource('schedule','ScheduleController');
 
+    //contact
+    Route::resource('/contact', 'ContactController');
+    Route::post('/contact/getContactList', 'ContactController@getContactList')->name('getContactList');
+
+
+
 });
 

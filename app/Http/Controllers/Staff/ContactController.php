@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Staff;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Schedule;
-use Auth;
+use App\Contact;
+use Response;
 
-class ScheduleController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +16,16 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        return view('staff.contact.index');
     }
 
-    public function addschedule(Request $request)
+    public function getContactList(Request $request)
     {
-        $conclusions = Schedule::where('created_by', Auth::user()->id)
-                                ->get();
-        return view('staff.schedule.index',compact('request','conclusions'));
+        $name_id = $request->c_name_id;
+        $contact_list = Contact::where('id',$name_id)
+                        ->where('is_active','1')
+                        ->get();
+        return Response::json($contact_list);
     }
 
     /**
@@ -44,30 +46,7 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-        'client_id' => 'required',
-        ]);
-
-        $schedules= Client::create([
-        'client_id' => $request['client_id'],
-        'mediator_id' => ,
-        'contact_id' => ,
-        'description' => $request['description'],
-        'first_meeting' => $request['first_meeting'],
-        'next_meeting' => $request['next_meeting'],
-        'allocated_time' => $request['allocated_time'],
-        'priority' => $request['checkbox'],
-        'created_by' => Auth::user()->id,
-        'created_at_np' => date("H:i:s"),
-        ]);
-        if($schedules->save()){
-            $pass = array(
-              'message' => 'Data added successfully!',
-              'alert-type' => 'success'
-          );
-        }
-        return back()->with($pass)->withInput();
-        // return redirect()->route('staff.schedule.index')->with($pass);
+        //
     }
 
     /**

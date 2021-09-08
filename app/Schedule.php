@@ -11,6 +11,8 @@ class Schedule extends Model
         'conclusion',
         'date',
         'time',
+        'next_date',
+        'priority',
         'client_id',
         'is_active',
         'created_by',
