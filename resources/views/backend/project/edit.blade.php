@@ -18,10 +18,14 @@
 </section>
 <section class="content">
   <div class="card card-info">
-    <form role="form" method="POST" action="{{route('admin.project.update',$edit->id)}}" class="validate" id="validate">
+    <form role="form" method="POST" action="" class="validate" id="validate">
+      {{ csrf_field() }}
       <div class="card-body">
+<<<<<<< HEAD
+=======
         {{method_field('PUT')}}
         {{ csrf_field() }}
+>>>>>>> 37a2d5a672c09ecb5d31511bf793deec4b2bfdb4
         <div class="row">
           <div class="form-group col-md-12">
             <label for="name">Project Name <span class="text-danger">*</span></label>
@@ -36,7 +40,6 @@
         </div>
       </div>
       <div class="card-footer justify-content-between">
-        
         <button type="submit" class="btn btn-info text-capitalize">Update</button>
       </div>
     </form>
