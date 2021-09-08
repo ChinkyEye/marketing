@@ -73,8 +73,9 @@ class ClientController extends Controller
     public function show($id)
     {
         $clients = Client::findorFail($id);
+        $mediators = Mediator::get();
         // dd($clients);
-        return view('staff.client.show',compact(['clients']));
+        return view('staff.client.show',compact(['clients','mediators']));
     }
 
     /**
