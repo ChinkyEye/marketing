@@ -85,7 +85,7 @@
         <div class="card">
           <div class="card-header p-2">
             <ul class="nav nav-pills">
-              <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Next Meeting</a></li>
+              <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Detail</a></li>
               <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Contact Person</a></li>
               <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">New Schedule</a></li>
             </ul>
@@ -93,69 +93,28 @@
           <div class="card-body">
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
-                <form role="form" method="POST" action="{{route('staff.client.storeinformation')}}" class="validate" id="validate">
+                {{-- <form role="form" method="POST" action="{{route('staff.client.storeinformation')}}" class="validate" id="validate">
+                  @foreach($conclusions as $key => $data)
                   <div class="card-body">
                     {{ csrf_field() }}
                     <div class="row">
-                      <input type="hidden" name="client_id" value="{{$clients->id}}">
-                      <fieldset class="border border-info container-fluid col-md-12 p-2 mb-2">
-                        <legend  class="w-auto"><small class="mx-2 text-info">Mediator.</small></legend>
-                        <div class="row">
-                          <div class="form-group col-md-6">
-                            <label for="name_data" class="control-label">Full Name<span class="text-danger">*</span></label>
-                            <select class="form-control" name="mediator_name" id="name_data">
-                              <option value="">Select Mediator</option>
-                              @foreach ($mediators as $key => $mediator)
-                              <option value="{{ $mediator->id }}" >
-                                {{$mediator->name}}
-                              </option>
-                              @endforeach
-                            </select>
-                          </div>
-                          {{-- <div class="form-group col">
-                            <label for="phone_data" class="control-label ">Phone No:</label>
-                            <input type="text"  class="form-control max" id="phone_data" placeholder="Enter phone no" name="mediator_phone" readonly="true">
-                          </div> --}}
-                        </div>
-                      </fieldset>
                       <div class="form-group col-md-6">
                         <label for="name">First Meeting<span class="text-danger">*</span></label>
-                        <input type="text"  class="form-control max" id="first_meeting" placeholder="Enter the phone" name="first_meeting" autocomplete="off" autofocus>
+                        <input type="text"  class="form-control max" id="first_meeting" placeholder="Enter the phone" name="first_meeting" autocomplete="off" autofocus value="{{$data->date}}">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="name">Next Meeting</label>
-                        <input type="text"  class="form-control max" id="next_meeting" placeholder="Enter the address" name="next_meeting" autocomplete="off" autofocus>
+                        <input type="text"  class="form-control max" id="next_meeting" placeholder="Enter the address" name="next_meeting" autocomplete="off" autofocus value="{{$data->next_date}}">
                       </div>
-                      {{-- <fieldset class="border border-info container-fluid col-md-12 p-2 mb-2">
-                        <legend  class="w-auto"><small class="mx-2 text-info">Contact Person</small></legend>
-                        <div class="row">
-                          <div class="form-group col">
-                            <label for="dob">Full Name<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_name" name="c_name" autocomplete="off" value="{{ old('c_name') }}">
-                          </div>
-                          <div class="form-group col">
-                            <label for="dob">Phone No:</label>
-                            <input type="text" class="form-control" id="c_phone" name="c_phone" autocomplete="off" value="{{ old('c_phone') }}">
-                          </div>
-                          <div class="form-group col">
-                            <label for="dob">Gmail:</label>
-                            <input type="text" class="form-control" id="c_gmail" name="c_gmail" autocomplete="off" value="{{ old('c_gmail') }}">
-                          </div>
-                          <div class="form-group col">
-                            <label for="dob">Post:</label>
-                            <input type="text" class="form-control" id="c_post" name="c_post" autocomplete="off" value="{{ old('c_post') }}">
-                          </div>
-                        </div>
-                      </fieldset> --}}
                       <div class="form-group col-md-12">
                         <label for="name">Conclusion</label>
-                        <textarea  class="form-control max" id="description" name="description" rows="4" cols="50">
+                        <textarea  class="form-control max" id="description" name="description" rows="4" cols="50">{{$data->conclusion}}
                         </textarea>
                       </div>
                       <div class="form-group col-md-12">
                         <label>Priority</label>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="checkbox" value="1">
+                          <input class="form-check-input" type="radio" name="checkbox" value="{{$data->priority == 1 ? 'checked' : ''}}">
                           <label class="form-check-label">High</label>
                         </div>
                         <div class="form-check">
@@ -168,11 +127,42 @@
                         </div> 
                       </div>
                   </div>
+                  @endforeach
                   </div>
-                  <div class="card-footer justify-content-between">
-                    <button type="submit" class="btn btn-info text-capitalize">Save</button>
-                  </div>
-                </form>
+                </form> --}}
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover my-0 table-sm">
+                    <thead class="bg-dark">
+                      <tr class="text-center">
+                        <th width="5%">SN</th>
+                        <th>Conclusion</th>
+                        <th>Schedule Date</th>
+                        <th>Next Meeting Date</th>
+                      </tr>
+                    </thead> 
+                    @foreach($conclusions as $key=>$data)             
+                    <tr class="text-center">
+                      <td>{{$key+1}}</td>
+                      <td>{{$data->conclusion}}</td>
+                      <td>{{$data->date}}</td>
+                      <td>{{$data->next_date}}</td>
+                     {{--  <td>
+                        <a href="{{route('staff.mediator.active',$data->id)}}" title="{{ $data->is_active == '1' ? 'Click to deactivate' : 'Click to activate' }}">
+                          <i class="fa {{ $data->is_active == '1' ? 'fa-check check-css' : 'fa-times cross-css' }}"></i>
+                        </a>
+                      </td> --}}
+                     {{--  <td>
+                        <a href="{{ route('staff.mediator.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
+                        <form action="{{ route('staff.mediator.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
+                          {{method_field('delete')}}
+                          {{ csrf_field() }}
+                          <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
+                        </form>
+                      </td> --}}
+                    </tr>
+                    @endforeach
+                  </table>
+                </div>
 
                 <!-- Post -->
                 
@@ -245,6 +235,24 @@
                     <label for="inputName2" class="col-sm-2 col-form-label">Next Meeting Date</label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" id="next_date" name="next_date" placeholder="Name">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputName2" class="col-sm-2 col-form-label">Priority</label>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="checkbox" value="1">
+                        <label class="form-check-label">High</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="checkbox" value="2">
+                        <label class="form-check-label">Medium</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="checkbox" value="3">
+                        <label class="form-check-label">Low</label>
+                      </div> 
+                      {{-- <input type="text" class="form-control" id="next_date" name="next_date" placeholder="Name"> --}}
                     </div>
                   </div>
                   <div class="form-group row">

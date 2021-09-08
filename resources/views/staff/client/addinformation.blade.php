@@ -63,6 +63,14 @@
             <label for="name">Next Meeting</label>
             <input type="text"  class="form-control max" id="next_meeting" placeholder="Enter the address" name="next_meeting" autocomplete="off" autofocus>
           </div>
+          <div class="form-group col-md-6">
+            <label for="name">Spend Time<span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="spend_time" placeholder="Enter time spend" name="spend_time" autocomplete="off" autofocus>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="name">Time<span class="text-danger">*</span></label>
+            <input type="text"  class="form-control max" id="time" placeholder="Enter time spend" name="time" autocomplete="off" autofocus>
+          </div>
           <fieldset class="border border-info container-fluid col-md-12 p-2 mb-2">
             <legend  class="w-auto"><small class="mx-2 text-info">Contact Person</small></legend>
             <div class="row">

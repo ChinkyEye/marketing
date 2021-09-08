@@ -34,10 +34,6 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff',
     Route::post('/client/storeinformation', 'ClientController@storeinformation')->name('client.storeinformation');
 
      Route::resource('/clientmeeting', 'ClientmeetingController');
-
-
-    
-
     
     //mediator
     Route::resource('/mediator', 'MediatorController');
@@ -47,6 +43,10 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff',
     //Schedule
     Route::get('schedule/addschedule','ScheduleController@addschedule')->name('addschedule');
     Route::resource('schedule','ScheduleController');
+
+    //contact
+    Route::resource('/mediator', 'MediatorController');
+
 
 });
 

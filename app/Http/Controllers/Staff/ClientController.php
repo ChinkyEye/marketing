@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Client;
 use App\Information;
 use App\Mediator;
+use App\Schedule;
 use Auth;
 use Response;
 
@@ -74,8 +75,9 @@ class ClientController extends Controller
     {
         $clients = Client::findorFail($id);
         $mediators = Mediator::get();
-        // dd($clients);
-        return view('staff.client.show',compact(['clients','mediators']));
+        $conclusions = Schedule::where('created_by', Auth::user()->id)
+                                ->get();
+        return view('staff.client.show',compact(['clients','mediators','conclusions']));
     }
 
     /**

@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Staff;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Schedule;
-use Auth;
 
-class ScheduleController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +14,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    public function addschedule(Request $request)
-    {
-        $conclusions = Schedule::where('created_by', Auth::user()->id)
-                                ->get();
-        return view('staff.schedule.index',compact('request','conclusions'));
+        return view('staff.contact.index');
     }
 
     /**
@@ -44,28 +35,7 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-        'client_id' => 'required',
-        ]);
-
-        $schedules= Schedule::create([
-        'client_id' => $request['client_id'],
-        'conclusion' => $request['conclusion'],
-        'date' => $request['date'],
-        'time' => $request['time'],
-        'next_date' => $request['next_date'],
-        'priority' => $request['checkbox'],
-        'created_by' => Auth::user()->id,
-        'created_at_np' => date("H:i:s"),
-        ]);
-        if($schedules->save()){
-            $pass = array(
-              'message' => 'Data added successfully!',
-              'alert-type' => 'success'
-          );
-        }
-        return back()->with($pass)->withInput();
-        // return redirect()->route('staff.schedule.index')->with($pass);
+        //
     }
 
     /**
