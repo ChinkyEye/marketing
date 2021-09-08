@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Staff;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Mediator;
+use App\Schedule;
 use Auth;
-use Response;
 
-class MediatorController extends Controller
+class ScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,14 @@ class MediatorController extends Controller
      */
     public function index()
     {
-        $mediators = Mediator::where('created_by', Auth::user()->id)->get();
-        return view('staff.mediator.index', compact('mediators'));
+        //
+    }
+
+    public function addschedule(Request $request)
+    {
+        $conclusions = Schedule::where('created_by', Auth::user()->id)
+                                ->get();
+        return view('staff.schedule.index',compact('request','conclusions'));
     }
 
     /**
@@ -28,7 +33,7 @@ class MediatorController extends Controller
      */
     public function create()
     {
-        return view('staff.mediator.create');
+        //
     }
 
     /**
@@ -40,23 +45,24 @@ class MediatorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-        'name' => 'required',
-        'phone' => 'required',
+        'client_id' => 'required',
         ]);
 
-        $mediators= Mediator::create([
-        'name' => $request['name'],
-        'phone' => $request['phone'],
+        $schedules= Schedule::create([
+        'client_id' => $request['client_id'],
+        'conclusion' => $request['conclusion'],
+        'date' => $request['date'],
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);
-        if($mediators->save()){
+        if($schedules->save()){
             $pass = array(
               'message' => 'Data added successfully!',
               'alert-type' => 'success'
           );
         }
-        return redirect()->route('staff.mediator.index')->with($pass);
+        return back()->with($pass)->withInput();
+        // return redirect()->route('staff.schedule.index')->with($pass);
     }
 
     /**
@@ -102,40 +108,5 @@ class MediatorController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function isActive(Request $request,$id){
-      $get_is_active = Mediator::where('id',$id)->value('is_active');
-        $isactive = Mediator::find($id);
-        if($get_is_active == 0){
-        $isactive->is_active = 1;
-        $notification = array(
-          'message' => $isactive->fullname.' is Active!',
-          'alert-type' => 'success'
-        );
-        }
-        else {
-        $isactive->is_active = 0;
-        $notification = array(
-          'message' => $isactive->fullname.' is inactive!',
-          'alert-type' => 'error'
-        );
-        }
-        if(!($isactive->update())){
-        $notification = array(
-          'message' => $isactive->fullname.' could not be changed!',
-          'alert-type' => 'error'
-        );
-        }
-        return back()->with($notification)->withInput();  
-    }
-
-    public function getMediatorList(Request $request)
-    {
-        $name_id = $request->m_name_id;
-        $mediator_list = Mediator::where('id',$name_id)
-                        ->where('is_active','1')
-                        ->get();
-        return Response::json($mediator_list);
     }
 }
