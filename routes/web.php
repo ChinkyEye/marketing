@@ -45,7 +45,7 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff',
     Route::resource('schedule','ScheduleController');
 
     //contact
-    Route::resource('/mediator', 'MediatorController');
+    Route::resource('/contact', 'ContactController');
 
 
 });

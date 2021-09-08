@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClientMeetingsTable extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateClientMeetingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_meetings', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('description')->nullable();
             $table->string('c_name');
-            $table->integer('priority')->nullable(); //1 for high 2 for medium  3 for low
+            $table->string('c_phone')->nullable();
+            $table->string('c_email')->nullable();
+            $table->string('c_post')->nullable();
             $table->integer('sort_id')->nullable();
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->unsigned();
@@ -35,6 +36,6 @@ class CreateClientMeetingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_meetings');
+        Schema::dropIfExists('contacts');
     }
 }

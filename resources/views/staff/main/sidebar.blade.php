@@ -25,6 +25,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{{route('staff.contact.index')}}" class="nav-link {{ (request()->is('staff/contact*')) ? 'active' : '' }}">
+            <i class="far fa-user nav-icon"></i>
+            <p>Contact Person</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{route('staff.client.index')}}" class="nav-link {{ (request()->is('staff/client*')) ? 'active' : '' }}">
             <i class="nav-icon fa fa-th"></i>
             <p>Client</p>
