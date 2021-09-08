@@ -153,10 +153,12 @@ $(document).ready(function(){
 $().ready(function() {
   $("#validate").validate({
     rules: {
-      fullname: "required",
+      spend_time: "required",
+      time: "required",
     },
     messages: {
-      fullname: "name field is required",
+      spend_time: "spent time field is required",
+      time: "time field is required",
     },
     highlight: function(element) {
      $(element).css('background', '#ffdddd');

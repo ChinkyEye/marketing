@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Staff;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Schedule;
+use App\Client;
+use App\Information;
 use Auth;
 
 class ScheduleController extends Controller
@@ -42,16 +43,18 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
+        $mediator_id = Information::where('client_id',$id)->value('mediator_id');
+        $contact_id = Information::where('client_id',$id)->value('contact_id');
         $this->validate($request, [
-        'client_id' => 'required',
+        'description' => 'required',
         ]);
 
-        $schedules= Client::create([
-        'client_id' => $request['client_id'],
-        'mediator_id' => ,
-        'contact_id' => ,
+        $informations= Information::create([
+        'client_id' => $id,
+        'mediator_id' => $mediator_id,
+        'contact_id' => $contact_id,
         'description' => $request['description'],
         'first_meeting' => $request['first_meeting'],
         'next_meeting' => $request['next_meeting'],
@@ -60,10 +63,16 @@ class ScheduleController extends Controller
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);
-        if($schedules->save()){
+        if($informations->save()){
             $pass = array(
               'message' => 'Data added successfully!',
               'alert-type' => 'success'
+          );
+        }
+        else{
+             $pass = array(
+              'message' => 'Error!',
+              'alert-type' => 'danger'
           );
         }
         return back()->with($pass)->withInput();

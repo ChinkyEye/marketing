@@ -46,7 +46,7 @@
               {{ csrf_field() }}
               <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
             </form>
-            <a href="{{ route('staff.client.show',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-eye"></i>
+            <a href="{{ route('staff.client.show',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="View Detail"><i class="fas fa-eye"></i>
             </a>
           </td>
         </tr>
@@ -56,3 +56,30 @@
   </div>
 </section>
 @endsection
+@push('javascript')
+<script src="{{URL::to('/')}}/backend/js/jquery.validate.js"></script>
+<script>
+$().ready(function() {
+  $("#validate").validate({
+    rules: {
+      fullname: "required",
+      description: "required",
+      allocated_time: "required",
+    },
+    messages: {
+      fullname: "name field is required",
+      description: "description field is required",
+      allocated_time: "time field is required",
+    },
+    highlight: function(element) {
+     $(element).css('background', '#ffdddd');
+     $(element).css('border-color', 'red');
+    },
+    unhighlight: function(element) {
+     $(element).css('background', '#ffffff');
+     $(element).css('border-color', 'green');
+    }
+  });
+});
+</script>
+@endpush

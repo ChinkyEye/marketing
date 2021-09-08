@@ -75,10 +75,8 @@ class ClientController extends Controller
     public function show($id)
     {
         $clients = Client::findorFail($id);
-        $mediators = Mediator::get();
-        $conclusions = Schedule::where('created_by', Auth::user()->id)
-                                ->get();
-        return view('staff.client.show',compact(['clients','mediators','conclusions']));
+        $conclusions = Information::where('created_by', Auth::user()->id)->get();
+        return view('staff.client.show',compact(['clients','conclusions']));
     }
 
     /**
@@ -112,7 +110,6 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        // dd($id);
         if($client->delete()){
             $notification = array(
               'message' => $client->fullname.' is deleted successfully!',
@@ -128,7 +125,8 @@ class ClientController extends Controller
         // return Response::json($notification);
     }
     
-    public function isActive(Request $request,$id){
+    public function isActive(Request $request,$id)
+    {
       $get_is_active = Client::where('id',$id)->value('is_active');
         $isactive = Client::find($id);
         if($get_is_active == 0){

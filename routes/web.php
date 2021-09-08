@@ -41,8 +41,8 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff',
     Route::post('/mediator/getMediatorList', 'MediatorController@getMediatorList')->name('getMediatorList');
 
     //Schedule
+    Route::post('schedule/store/{id}', 'ScheduleController@store')->name('storeschedule');
     Route::get('schedule/addschedule','ScheduleController@addschedule')->name('addschedule');
-    Route::resource('schedule','ScheduleController');
 
     //contact
     Route::resource('/contact', 'ContactController');
