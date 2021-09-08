@@ -46,6 +46,8 @@ Route::namespace('Staff')->prefix('staff')->name('staff.')->middleware(['staff',
 
     //contact
     Route::resource('/contact', 'ContactController');
+    Route::post('/contact/getContactList', 'ContactController@getContactList')->name('getContactList');
+
 
 
 });

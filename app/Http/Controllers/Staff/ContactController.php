@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Staff;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Contact;
+use Response;
 
 class ContactController extends Controller
 {
@@ -15,6 +17,15 @@ class ContactController extends Controller
     public function index()
     {
         return view('staff.contact.index');
+    }
+
+    public function getContactList(Request $request)
+    {
+        $name_id = $request->c_name_id;
+        $contact_list = Contact::where('id',$name_id)
+                        ->where('is_active','1')
+                        ->get();
+        return Response::json($contact_list);
     }
 
     /**

@@ -48,12 +48,14 @@ class ScheduleController extends Controller
         'client_id' => 'required',
         ]);
 
-        $schedules= Schedule::create([
+        $schedules= Client::create([
         'client_id' => $request['client_id'],
-        'conclusion' => $request['conclusion'],
-        'date' => $request['date'],
-        'time' => $request['time'],
-        'next_date' => $request['next_date'],
+        'mediator_id' => ,
+        'contact_id' => ,
+        'description' => $request['description'],
+        'first_meeting' => $request['first_meeting'],
+        'next_meeting' => $request['next_meeting'],
+        'allocated_time' => $request['allocated_time'],
         'priority' => $request['checkbox'],
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),

@@ -8,6 +8,7 @@ use App\Client;
 use App\Information;
 use App\Mediator;
 use App\Schedule;
+use App\Contact;
 use Auth;
 use Response;
 
@@ -157,7 +158,8 @@ class ClientController extends Controller
     {
         $clients = Client::findorFail($id);
         $mediators = Mediator::get();
-        return view('staff.client.addinformation',compact(['clients','request','mediators']));
+        $contacts = Contact::get();
+        return view('staff.client.addinformation',compact(['clients','request','mediators','contacts']));
     }
 
     public function storeinformation(Request $request)
@@ -168,13 +170,12 @@ class ClientController extends Controller
         ]);
         $subs= Information::create([
             'client_id' => $request['client_id'],
+            'contact_id' => $request['contact_name'],
             'mediator_id' => $request['mediator_name'],
             'first_meeting' => $request['first_meeting'],
             'next_meeting' => $request['first_meeting'],
-            'c_name' => $request['c_name'],
-            'c_phone' => $request['c_phone'],
-            'c_email' => $request['c_email'],
-            'c_post' => $request['c_post'],
+            'spend_time' => $request['spend_time'],
+            'time' => $request['time'],
             'priority' =>$request['checkbox'],
             'description' => $request['description'],
             'created_by' => Auth::user()->id,
