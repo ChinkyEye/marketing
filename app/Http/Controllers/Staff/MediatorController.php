@@ -114,9 +114,20 @@ class MediatorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Mediator $mediator)
     {
-        //
+        if($mediator->delete()){
+            $notification = array(
+              'message' => $mediator->name.' is deleted successfully!',
+              'status' => 'success'
+          );
+        }else{
+            $notification = array(
+              'message' => $mediator->name.' could not be deleted!',
+              'status' => 'error'
+          );
+        }
+        return back()->with($notification)->withInput();
     }
 
     public function isActive(Request $request,$id){

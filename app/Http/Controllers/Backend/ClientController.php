@@ -192,47 +192,103 @@ class ClientController extends Controller
             'mediator_name' => 'required',
             'mediator_phone' => 'required',
         ]);
-        $contact = Contact::create([
-            'name' => $request['c_name'],
-            'phone' => $request['c_phone'],
-            'email' => $request['c_email'],
-            'post' => $request['c_post'],
-            'created_by' => Auth::user()->id,
-            'created_at_np' => date("H:i:s"),
-        ]);
-        $mediators = Mediator::create([
-            'name' => $request['mediator_name'],
-            'phone' => $request['mediator_phone'],
-            'created_by' => Auth::user()->id,
-            'created_at_np' => date("H:i:s"),
-        ]);
-        $subs= Information::create([
-            'client_id' => $request['client_id'],
-            'contact_id' => $contact->id,
-            'mediator_id' => $mediators->id,
-            'first_meeting' => $request['first_meeting'],
-            'next_meeting' => $request['first_meeting'],
-            'spend_time' => $request['spend_time'],
-            'time' => $request['time'],
-            'priority' =>$request['checkbox'],
-            'description' => $request['description'],
-            // 'count' => '1',
-            'created_by' => Auth::user()->id,
-            'created_at_np' => date("H:i:s"),
-        ]);
-        $clientsinfo= ClientHasInfo::create([
-            'client_id' => $request['client_id'],
-            'contact_id' => $contact->id,
-            'mediator_id' => $mediators->id,
-            'created_by' => Auth::user()->id,
-            'created_at_np' => date("H:i:s"),
-        ]);
-        if($subs->save()){
-            $pass = array(
-              'message' => 'Data added successfully!',
-              'alert-type' => 'success'
-          );
+        try{
+            return DB::transaction(function() use ($request)
+            {
+                $contact = Contact::create([
+                    'name' => $request['c_name'],
+                    'phone' => $request['c_phone'],
+                    'email' => $request['c_email'],
+                    'post' => $request['c_post'],
+                    'created_by' => Auth::user()->id,
+                    'created_at_np' => date("H:i:s"),
+                ]);
+                   $mediators = Mediator::create([
+                    'name' => $request['mediator_name'],
+                    'phone' => $request['mediator_phone'],
+                    'created_by' => Auth::user()->id,
+                    'created_at_np' => date("H:i:s"),
+                ]);
+                   $subs= Information::create([
+                    'client_id' => $request['client_id'],
+                    'contact_id' => $contact->id,
+                    'mediator_id' => $mediators->id,
+                    'first_meeting' => $request['first_meeting'],
+                    'next_meeting' => $request['first_meeting'],
+                    'spend_time' => $request['spend_time'],
+                    'time' => $request['time'],
+                    'priority' =>$request['checkbox'],
+                    'description' => $request['description'],
+                // 'count' => '1',
+                    'created_by' => Auth::user()->id,
+                    'created_at_np' => date("H:i:s"),
+                ]);
+                   $clientsinfo= ClientHasInfo::create([
+                    'client_id' => $request['client_id'],
+                    'contact_id' => $contact->id,
+                    'mediator_id' => $mediators->id,
+                    'created_by' => Auth::user()->id,
+                    'created_at_np' => date("H:i:s"),
+                ]);
+                   if($subs->save()){
+                    $pass = array(
+                      'message' => 'Data added successfully!',
+                      'alert-type' => 'success'
+                  );
+                }
+                return redirect()->route('admin.client.index')->with($pass);
+
+            });
+        }catch(\Exception $e){
+            DB::rollback();
+            throw $e;
         }
-        return redirect()->route('admin.client.index')->with($pass);
+        DB::commit();
+        // $this->validate($request, [
+        //     'mediator_name' => 'required',
+        //     'mediator_phone' => 'required',
+        // ]);
+        // $contact = Contact::create([
+        //     'name' => $request['c_name'],
+        //     'phone' => $request['c_phone'],
+        //     'email' => $request['c_email'],
+        //     'post' => $request['c_post'],
+        //     'created_by' => Auth::user()->id,
+        //     'created_at_np' => date("H:i:s"),
+        // ]);
+        // $mediators = Mediator::create([
+        //     'name' => $request['mediator_name'],
+        //     'phone' => $request['mediator_phone'],
+        //     'created_by' => Auth::user()->id,
+        //     'created_at_np' => date("H:i:s"),
+        // ]);
+        // $subs= Information::create([
+        //     'client_id' => $request['client_id'],
+        //     'contact_id' => $contact->id,
+        //     'mediator_id' => $mediators->id,
+        //     'first_meeting' => $request['first_meeting'],
+        //     'next_meeting' => $request['first_meeting'],
+        //     'spend_time' => $request['spend_time'],
+        //     'time' => $request['time'],
+        //     'priority' =>$request['checkbox'],
+        //     'description' => $request['description'],
+        //     // 'count' => '1',
+        //     'created_by' => Auth::user()->id,
+        //     'created_at_np' => date("H:i:s"),
+        // ]);
+        // $clientsinfo= ClientHasInfo::create([
+        //     'client_id' => $request['client_id'],
+        //     'contact_id' => $contact->id,
+        //     'mediator_id' => $mediators->id,
+        //     'created_by' => Auth::user()->id,
+        //     'created_at_np' => date("H:i:s"),
+        // ]);
+        // if($subs->save()){
+        //     $pass = array(
+        //       'message' => 'Data added successfully!',
+        //       'alert-type' => 'success'
+        //   );
+        // }
+        // return redirect()->route('admin.client.index')->with($pass);
     }
 }

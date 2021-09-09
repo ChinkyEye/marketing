@@ -27,15 +27,15 @@
             <input type="text"  class="form-control max" id="fullname" placeholder="Enter fullname" name="fullname" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="name">Phone No:</label>
+            <label for="phone">Phone No:</label>
             <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="name">Address</label>
+            <label for="address">Address</label>
             <input type="text"  class="form-control max" id="address" placeholder="Enter the address" name="address" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="name">Email</label>
+            <label for="email">Email</label>
             <input type="text"  class="form-control max" id="email" placeholder="Enter email" name="email" autocomplete="off">
           </div>
       </div>

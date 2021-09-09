@@ -5,7 +5,7 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
-      <a href="{{route('staff.contact.create')}}" class="btn btn-sm btn-info text-capitalize rounded-0">Add Contact</a>
+      {{-- <a href="{{route('staff.contact.create')}}" class="btn btn-sm btn-info text-capitalize rounded-0">Add Contact</a> --}}
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="card-refresh" data-source="{{request()->url()}}" data-source-selector="#card-refresh-content"><i class="fas fa-sync-alt"></i></button>
         <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
@@ -36,7 +36,7 @@
           </td> --}}
           <td>
             <a href="{{ route('staff.contact.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
-            <form action="{{ route('staff.contact.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
+            <form action="{{ route('staff.contact.destroy',$data->id) }}" method="post" class="d-inline-block delete-confirm" data-placement="top" title="Permanent Delete">
               {{method_field('delete')}}
               {{ csrf_field() }}
               <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>

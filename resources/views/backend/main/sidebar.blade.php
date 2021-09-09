@@ -25,15 +25,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('admin.contact.index')}}" class="nav-link {{ (request()->is('staff/contact*')) ? 'active' : '' }}">
-            <i class="far fa-user nav-icon"></i>
-            <p>Contact Person</p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="{{ route('admin.mediator.index')}}" class="nav-link {{ (request()->is('home/mediator*')) ? 'active' : '' }}">
             <i class="fas fa-user nav-icon"></i>
             <p>Mediator</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{route('admin.contact.index')}}" class="nav-link {{ (request()->is('staff/contact*')) ? 'active' : '' }}">
+            <i class="far fa-user nav-icon"></i>
+            <p>Contact Person</p>
           </a>
         </li>
         <li class="nav-item">

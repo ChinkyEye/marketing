@@ -41,11 +41,13 @@
           <td>
             <a href="{{ route('admin.client.addinformation',$data->id)}}" class="btn btn-xs btn-outline-info" data-placement="top" title="Add Information"><i class="fas fa-plus"></i></a>
             <a href="{{ route('admin.client.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
+            @if($data->created_by == Auth::user()->id)
             <form action="{{ route('admin.client.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
               {{method_field('delete')}}
               {{ csrf_field() }}
               <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
             </form>
+            @endif
             <a href="{{ route('admin.client.show',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="View Detail"><i class="fas fa-eye"></i>
             </a>
           </td>
