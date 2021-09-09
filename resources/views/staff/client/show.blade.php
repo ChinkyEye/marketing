@@ -6,6 +6,7 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
+      @if($clients->getClientInfo != Null)
       <div class="col-md-3">
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
@@ -163,6 +164,12 @@
 
         </div>
       </div>
+      @else
+      <div class="text-center col-md-12">
+         {{-- <h2 style="text-align: center;color: green;vertical-align: middle;line-height: 200px ">PLEASE ADD CLIENTS INFORMATION</h2> --}}
+        <h2 class="text-center text-success my-5">PLEASE ADD CLIENTS INFORMATION</h2>
+      </div>
+      @endif
 
     </div>
   </div>

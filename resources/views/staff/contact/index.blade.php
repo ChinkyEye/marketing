@@ -18,32 +18,32 @@
         <thead class="bg-dark">
           <tr class="text-center">
             <th width="5%">SN</th>
-            <th>Full Name sss</th>
+            <th>Full Name</th>
             <th>Phone No</th>
-            <th>Status</th>
+            {{-- <th>Status</th> --}}
             <th>Action</th>
           </tr>
         </thead> 
-       {{--  @foreach($mediators as $key=>$data)             
+        @foreach($contact as $key=>$data)             
         <tr class="text-center">
           <td>{{$key+1}}</td>
           <td>{{$data->name}}</td>
           <td>{{$data->phone}}</td>
-          <td>
-            <a href="{{route('staff.mediator.active',$data->id)}}" title="{{ $data->is_active == '1' ? 'Click to deactivate' : 'Click to activate' }}">
+          {{-- <td>
+            <a href="{{route('staff.contact.active',$data->id)}}" title="{{ $data->is_active == '1' ? 'Click to deactivate' : 'Click to activate' }}">
               <i class="fa {{ $data->is_active == '1' ? 'fa-check check-css' : 'fa-times cross-css' }}"></i>
             </a>
-          </td>
+          </td> --}}
           <td>
-            <a href="{{ route('staff.mediator.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
-            <form action="{{ route('staff.mediator.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
+            <a href="{{ route('staff.contact.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
+            {{-- <form action="{{ route('staff.contact.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
               {{method_field('delete')}}
               {{ csrf_field() }}
               <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
-            </form>
+            </form> --}}
           </td>
         </tr>
-        @endforeach --}}
+        @endforeach
       </table>
     </div>
   </div>

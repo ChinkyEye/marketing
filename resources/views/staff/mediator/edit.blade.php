@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6 pl-1">
-        <h1 class="text-capitalize">Edit Client</h1>
+        <h1 class="text-capitalize">Edit Mediator</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -18,26 +18,18 @@
 </section>
 <section class="content">
   <div class="card card-info">
-    <form role="form" method="POST" action="{{route('staff.client.update',$clients->id)}}" class="validate" id="validate">
+    <form role="form" method="POST" action="{{route('staff.mediator.update',$mediators->id)}}" class="validate" id="validate">
       <div class="card-body">
         {{ method_field('PUT') }}
         {{ csrf_field() }}
         <div class="row">
           <div class="form-group col-md-6">
             <label for="name">Full Name <span class="text-danger">*</span></label>
-            <input type="text"  class="form-control max" id="fullname" placeholder="Enter fullname" name="fullname" autocomplete="off" value="{{$clients->fullname}}">
+            <input type="text"  class="form-control max" id="name" placeholder="Enter fullname" name="name" autocomplete="off" value="{{$mediators->name}}">
           </div>
           <div class="form-group col-md-6">
-            <label for="phone">Phone No:</label>
-            <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off" value="{{$clients->phone}}">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="email">Gmail:</label>
-            <input type="text"  class="form-control max" id="email" placeholder="Enter the phone" name="email" autocomplete="off" value="{{$clients->email}}">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="address">Post:</label>
-            <input type="text"  class="form-control max" id="address" placeholder="Enter the phone" name="address" autocomplete="off" value="{{$clients->address}}">
+            <label for="name">Phone No:</label>
+            <input type="text"  class="form-control max" id="phone" placeholder="Enter the phone" name="phone" autocomplete="off" value="{{$mediators->phone}}">
           </div>
       </div>
       </div>

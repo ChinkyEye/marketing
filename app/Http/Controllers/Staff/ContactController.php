@@ -69,13 +69,27 @@ class ContactController extends Controller
   
     public function edit($id)
     {
-        //
+        $contacts = Contact::find($id);
+        return view('staff.contact.edit', compact('contacts'));
     }
 
    
-    public function update(Request $request, $id)
+    public function update(Request $request, Contact $contact)
     {
-        //
+        $main_data = $request->all();
+        $main_data['updated_by'] = Auth::user()->id;
+        if($contact->update($main_data)){
+            $notification = array(
+                'message' => $request->name.' updated successfully!',
+                'alert-type' => 'success'
+            );
+        }else{
+            $notification = array(
+                'message' => $request->name.' could not be updated!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect()->route('staff.contact.index')->with($notification)->withInput();
     }
 
     

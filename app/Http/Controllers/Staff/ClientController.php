@@ -59,19 +59,34 @@ class ClientController extends Controller
         $clients = Client::findorFail($id);
         $conclusions = Information::where('created_by', Auth::user()->id)
                                     ->where('client_id',$id)->get();
+                                    // dd($clients->getClientInfo);
         return view('staff.client.show',compact(['clients','conclusions']));
     }
 
    
     public function edit($id)
     {
-        //
+        $clients = Client::find($id);
+        return view('staff.client.edit', compact('clients'));
     }
 
    
-    public function update(Request $request, $id)
+    public function update(Request $request, Client $client)
     {
-        //
+        $main_data = $request->all();
+        $main_data['updated_by'] = Auth::user()->id;
+        if($client->update($main_data)){
+            $notification = array(
+                'message' => $request->name.' updated successfully!',
+                'alert-type' => 'success'
+            );
+        }else{
+            $notification = array(
+                'message' => $request->name.' could not be updated!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect()->route('staff.client.index')->with($notification)->withInput();
     }
 
     /**

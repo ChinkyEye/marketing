@@ -20,7 +20,7 @@
             <th width="5%">SN</th>
             <th>Full Name</th>
             <th>Phone No</th>
-            <th>Status</th>
+            {{-- <th>Status</th> --}}
             <th>Action</th>
           </tr>
         </thead> 
@@ -29,18 +29,18 @@
           <td>{{$key+1}}</td>
           <td>{{$data->name}}</td>
           <td>{{$data->phone}}</td>
-          <td>
+          {{-- <td>
             <a href="{{route('staff.mediator.active',$data->id)}}" title="{{ $data->is_active == '1' ? 'Click to deactivate' : 'Click to activate' }}">
               <i class="fa {{ $data->is_active == '1' ? 'fa-check check-css' : 'fa-times cross-css' }}"></i>
             </a>
-          </td>
+          </td> --}}
           <td>
             <a href="{{ route('staff.mediator.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
-            <form action="{{ route('staff.mediator.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
+            {{-- <form action="{{ route('staff.mediator.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
               {{method_field('delete')}}
               {{ csrf_field() }}
               <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
-            </form>
+            </form> --}}
           </td>
         </tr>
         @endforeach

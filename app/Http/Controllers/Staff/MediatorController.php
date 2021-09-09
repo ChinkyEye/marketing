@@ -78,7 +78,8 @@ class MediatorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mediators = Mediator::find($id);
+        return view('staff.mediator.edit', compact('mediators'));
     }
 
     /**
@@ -88,9 +89,23 @@ class MediatorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Mediator $mediator)
     {
-        //
+        $main_data = $request->all();
+        $main_data['updated_by'] = Auth::user()->id;
+        if($mediator->update($main_data)){
+            $notification = array(
+                'message' => $request->name.' updated successfully!',
+                'alert-type' => 'success'
+            );
+        }else{
+            $notification = array(
+                'message' => $request->name.' could not be updated!',
+                'alert-type' => 'error'
+            );
+        }
+        return redirect()->route('staff.mediator.index')->with($notification)->withInput();
+
     }
 
     /**
