@@ -12,6 +12,16 @@ class Client extends Model
 
     public function getInformation()
     {
-        return $this->hasOne('App\Information','client_id','id');
+        return $this->hasMany('App\Information','client_id','id');
+    }
+
+    public function getClientInfo()
+    {
+        return $this->hasOne('App\ClientHasInfo','client_id','id');
+    }
+
+    public function getFirstInformation()
+    {
+        return $this->hasOne('App\Information','client_id','id')->where('count','1');
     }
 }

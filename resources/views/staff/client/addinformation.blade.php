@@ -38,7 +38,7 @@
           <fieldset class="border border-info container-fluid col-md-12 p-2 mb-2">
             <legend  class="w-auto"><small class="mx-2 text-info">Mediator.</small></legend>
             <div class="row">
-              <div class="form-group col">
+              {{-- <div class="form-group col">
                 <label for="name_data" class="control-label">Full Name<span class="text-danger">*</span></label>
                 <select class="form-control" name="mediator_name" id="name_data">
                   <option value="">Select Mediator</option>
@@ -48,10 +48,14 @@
                   </option>
                   @endforeach
                 </select>
+              </div> --}}
+              <div class="form-group col">
+                <label for="mediator_name" class="control-label ">Full Name:</label>
+                <input type="text"  class="form-control max" id="mediator_name" name="mediator_name" placeholder="Enter mediator name">
               </div>
               <div class="form-group col">
                 <label for="phone_data" class="control-label ">Phone No:</label>
-                <input type="text"  class="form-control max" id="phone_data" placeholder="Enter phone no" name="mediator_phone" readonly="true">
+                <input type="text"  class="form-control max" id="mediator_phone" placeholder="Enter phone no" name="mediator_phone">
               </div>
             </div>
           </fieldset>
@@ -87,19 +91,19 @@
               </div> --}}
               <div class="form-group col">
                 <label for="phone_data" class="control-label ">Full Name:</label>
-                <input type="text"  class="form-control max" id="contact_data" placeholder="Enter phone no" name="contact_name" >
+                <input type="text"  class="form-control max" id="c_name" placeholder="Enter phone no" name="c_name" s>
               </div>
               <div class="form-group col">
                 <label for="phone_data" class="control-label ">Phone No:</label>
-                <input type="text"  class="form-control max" id="c_phone_data" placeholder="Enter phone no" name="c_phone" >
+                <input type="text"  class="form-control max" id="c_phone" placeholder="Enter phone no" name="c_phone">
               </div>
               <div class="form-group col">
                 <label for="phone_data" class="control-label ">Email:</label>
-                <input type="text"  class="form-control max" id="c_email_data" placeholder="Enter phone no" name="c_email" >
+                <input type="text"  class="form-control max" id="c_email" placeholder="Enter phone no" name="c_email" s>
               </div>
               <div class="form-group col">
                 <label for="phone_data" class="control-label ">Post:</label>
-                <input type="text"  class="form-control max" id="c_post_data" placeholder="Enter phone no" name="c_post" >
+                <input type="text"  class="form-control max" id="c_post" placeholder="Enter phone no" name="c_post">
               </div>
             </div>
           </fieldset>

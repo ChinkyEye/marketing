@@ -6,7 +6,6 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
-
       <div class="col-md-3">
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
@@ -33,15 +32,12 @@
             <h3 class="card-title">About Mediator</h3>
           </div>
           <div class="card-body">
-            {{-- @if($mediators == null) --}}
-            @if($clients->getMediator)
             <strong><i class="fas fa-user-tie mr-1"></i>Name</strong>
-            <p class="text-muted">{{$clients->getInformation->getMediator->name}}</p>
+            <p class="text-muted">{{$clients->getClientInfo->getMediator->name}}</p>
             <hr>
             <strong><i class="fas fa-phone-volume mr-1"></i>Number</strong>
-            <p class="text-muted">{{$clients->getInformation->getMediator->phone}}</p>
+            <p class="text-muted">{{$clients->getClientInfo->getMediator->phone}}</p>
             <hr>
-            @endif
           </div>
         </div>
       </div>
@@ -53,7 +49,7 @@
             <ul class="nav nav-pills">
               <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Detail</a></li>
               <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Contact Person</a></li>
-              <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">New Schedule</a></li>
+              <li class="nav-item"><a class="nav-link" href="#newschedule" data-toggle="tab">New Schedule</a></li>
             </ul>
           </div>
           <div class="card-body">
@@ -61,9 +57,7 @@
               <div class="active tab-pane" id="activity">
                 <div class="my-3">
                   <li class="list-group-item">
-                    @if($clients->getInformation)
                     <b>Conclusion:</b> <a class="float-right col-md-6">{{$clients->getInformation->first()->description}}</a>
-                    @endif
                   </li>
                 </div>
                 <div class="table-responsive">
@@ -90,32 +84,29 @@
 
               <div class="tab-pane" id="timeline">
                 <div class="">
-                {{-- <div class="timeline timeline-inverse"> --}}
                   <div class="time-label">
                     <span class="text-info">
                       Contact Person Detail
                     </span>
                   </div>
                   <ul class="list-group list-group-unbordered mb-3">
-                    @if($clients->getInformation)
                     <li class="list-group-item">
-                      <b> Full Name</b> <a class="float-right">{{$clients->getInformation->c_name}}</a>
+                      <b> Full Name</b> <a class="float-right">{{$clients->getClientInfo->getContact->name}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b> Contact No</b> <a class="float-right">{{$clients->getInformation->c_phone}}</a>
+                      <b> Contact No</b> <a class="float-right">{{$clients->getClientInfo->getContact->phone}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b> Email</b> <a class="float-right">{{$clients->getInformation->c_gmail}}</a>
+                      <b> Email</b> <a class="float-right">{{$clients->getClientInfo->getContact->email}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b> Post</b> <a class="float-right">{{$clients->getInformation->c_post}}</a>
+                      <b> Post</b> <a class="float-right">{{$clients->getClientInfo->getContact->post}}</a>
                     </li>
-                    @endif
                   </ul>
                 </div>
               </div>
 
-              <div class="tab-pane" id="settings">
+              <div class="tab-pane" id="newschedule">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.storeschedule',$clients->id)}}" class="validate" id="validate">
                   {{ csrf_field() }}
                   <div class="form-group row">
@@ -157,7 +148,6 @@
                         <input class="form-check-input" type="radio" name="checkbox" value="3">
                         <label class="form-check-label">Low</label>
                       </div> 
-                      {{-- <input type="text" class="form-control" id="next_date" name="next_date" placeholder="Name"> --}}
                     </div>
                   </div>
                   <div class="form-group row">

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContactsTable extends Migration
+class CreateClientHasInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('client_has_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('fullname');
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('email')->nullable();
-            $table->string('post')->nullable();
-            $table->integer('sort_id')->nullable();
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')->references('id')->on('clients');
+            $table->integer('mediator_id')->unsigned();
+            $table->foreign('mediator_id')->references('id')->on('mediators');
+            $table->integer('contact_id')->unsigned();
+            $table->foreign('contact_id')->references('id')->on('contacts');
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');
@@ -37,6 +37,6 @@ class CreateContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('client_has_infos');
     }
 }

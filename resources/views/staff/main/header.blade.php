@@ -7,13 +7,6 @@
       <a href="{{url()->previous()}}" class="nav-link">Back</a>
      
     </li>
-
-    <li class="nav-item d-none d-sm-inline-block">
-      <a class="nav-link"  href="">
-        <i class="fas fa-user-tie mr-1" title="Add School"></i> Create User
-      </a>
-     
-    </li>
   </ul>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">

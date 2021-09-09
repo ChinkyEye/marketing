@@ -28,6 +28,7 @@ class CreateInformationTable extends Migration
             $table->string('time')->nullable();
             $table->string('allocated_time')->nullable();
             $table->integer('priority')->nullable(); //1 for high 2 for medium  3 for low
+            // $table->integer('count')->default(0); //1 for firstt
             $table->integer('sort_id')->nullable();
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->unsigned();

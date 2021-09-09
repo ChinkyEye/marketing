@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Client;
 use App\Information;
 use App\Mediator;
-use App\Schedule;
 use App\Contact;
+use App\ClientHasInfo;
 use Auth;
 use Response;
 
@@ -57,10 +57,8 @@ class ClientController extends Controller
     public function show($id)
     {
         $clients = Client::findorFail($id);
-        $mediators = Mediator::get();
-        // dd($mediators);
         $conclusions = Information::where('created_by', Auth::user()->id)->get();
-        return view('staff.client.show',compact(['clients','conclusions','mediators']));
+        return view('staff.client.show',compact(['clients','conclusions']));
     }
 
    
@@ -135,29 +133,43 @@ class ClientController extends Controller
 
     public function storeinformation(Request $request)
     {
+        // dd($request);
         $this->validate($request, [
             'mediator_name' => 'required',
             'mediator_phone' => 'required',
         ]);
         $contact = Contact::create([
-            'c_name' => $request['description'],
-            'c_phone' => $request['c_phone'],
-            'c_email' => $request['c_email'],
-            'c_post' => $request['c_post'],
-            'c_name' => $request['contact_name'],
+            'name' => $request['c_name'],
+            'phone' => $request['c_phone'],
+            'email' => $request['c_email'],
+            'post' => $request['c_post'],
+            'created_by' => Auth::user()->id,
+            'created_at_np' => date("H:i:s"),
+        ]);
+        $mediators = Mediator::create([
+            'name' => $request['mediator_name'],
+            'phone' => $request['mediator_phone'],
             'created_by' => Auth::user()->id,
             'created_at_np' => date("H:i:s"),
         ]);
         $subs= Information::create([
             'client_id' => $request['client_id'],
             'contact_id' => $contact->id,
-            'mediator_id' => $request['mediator_name'],
+            'mediator_id' => $mediators->id,
             'first_meeting' => $request['first_meeting'],
             'next_meeting' => $request['first_meeting'],
             'spend_time' => $request['spend_time'],
             'time' => $request['time'],
             'priority' =>$request['checkbox'],
             'description' => $request['description'],
+            // 'count' => '1',
+            'created_by' => Auth::user()->id,
+            'created_at_np' => date("H:i:s"),
+        ]);
+        $clientsinfo= ClientHasInfo::create([
+            'client_id' => $request['client_id'],
+            'contact_id' => $contact->id,
+            'mediator_id' => $mediators->id,
             'created_by' => Auth::user()->id,
             'created_at_np' => date("H:i:s"),
         ]);

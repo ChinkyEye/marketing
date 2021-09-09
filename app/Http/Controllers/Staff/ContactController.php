@@ -12,13 +12,10 @@ class ContactController extends Controller
 {
    
     public function index()
-    {   $contact=Contact::where('created_by',Auth::user()->id)
+    {  
+        $contact=Contact::where('created_by',Auth::user()->id)
                           ->get();
         return view('staff.contact.index',compact('contact'));
-
-        //  $clients = Client::where('created_by',Auth::user()->id)
-        //                     ->get();
-        // return view('staff.client.index', compact('clients'));
     }
 
     public function getContactList(Request $request)
