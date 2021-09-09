@@ -57,7 +57,8 @@ class ClientController extends Controller
     public function show($id)
     {
         $clients = Client::findorFail($id);
-        $conclusions = Information::where('created_by', Auth::user()->id)->get();
+        $conclusions = Information::where('created_by', Auth::user()->id)
+                                    ->where('client_id',$id)->get();
         return view('staff.client.show',compact(['clients','conclusions']));
     }
 
