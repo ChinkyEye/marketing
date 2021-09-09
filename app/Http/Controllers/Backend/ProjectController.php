@@ -56,14 +56,12 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $edit = Project::find($id);
-        // dd($edit->id);
         return view('backend.project.edit',compact('edit'));
     }
 
     
     public function update(Request $request, $id)
     {
-        // dd('gg');
         $data_store =Project::find($id);
         $data_store->name = $request->name;
         $data_store->description = $request->description;
@@ -85,7 +83,6 @@ class ProjectController extends Controller
    
     public function destroy(Project $project)
     {
-        // dd($id);
         if($project->delete()){
             $notification = array(
               'message' => $project->name.' is deleted successfully!',

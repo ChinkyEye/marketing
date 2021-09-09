@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,9 +13,8 @@ class ContactController extends Controller
    
     public function index()
     {  
-        $contact=Contact::where('created_by',Auth::user()->id)
-                          ->get();
-        return view('staff.contact.index',compact('contact'));
+        $contact=Contact::get();
+        return view('backend.contact.index',compact('contact'));
     }
 
     public function getContactList(Request $request)
@@ -30,7 +29,7 @@ class ContactController extends Controller
    
     public function create()
     {
-        return view('staff.contact.create');
+        return view('backend.contact.create');
     }
 
    
@@ -57,7 +56,7 @@ class ContactController extends Controller
           'message' => 'Data added successfully!',
           'alert-type' => 'success'
         );
-        return redirect()->route('staff.contact.index')->with($pass);
+        return redirect()->route('backend.contact.index')->with($pass);
     }
 
    
@@ -70,7 +69,7 @@ class ContactController extends Controller
     public function edit($id)
     {
         $contacts = Contact::find($id);
-        return view('staff.contact.edit', compact('contacts'));
+        return view('backend.contact.edit', compact('contacts'));
     }
 
    
@@ -89,7 +88,7 @@ class ContactController extends Controller
                 'alert-type' => 'error'
             );
         }
-        return redirect()->route('staff.contact.index')->with($notification)->withInput();
+        return redirect()->route('backend.contact.index')->with($notification)->withInput();
     }
 
     

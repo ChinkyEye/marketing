@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,15 +18,14 @@ class ClientController extends Controller
    
     public function index()
     {
-        $clients = Client::where('created_by',Auth::user()->id)
-                            ->get();
-        return view('staff.client.index', compact('clients'));
+        $clients = Client::get();
+        return view('backend.client.index', compact('clients'));
     }
 
   
     public function create()
     {
-        return view('staff.client.create');
+        return view('backend.client.create');
     }
 
    
@@ -51,24 +50,22 @@ class ClientController extends Controller
           'message' => 'Data added successfully!',
           'alert-type' => 'success'
         );
-        return redirect()->route('staff.client.index')->with($pass);
+        return redirect()->route('admin.client.index')->with($pass);
     }
 
     
     public function show($id)
     {
         $clients = Client::findorFail($id);
-        $conclusions = Information::where('created_by', Auth::user()->id)
-                                    ->where('client_id',$id)->get();
-                                    // dd($clients->getClientInfo);
-        return view('staff.client.show',compact(['clients','conclusions']));
+        $conclusions = Information::where('client_id',$id)->get();
+        return view('backend.client.show',compact(['clients','conclusions']));
     }
 
    
     public function edit($id)
     {
         $clients = Client::find($id);
-        return view('staff.client.edit', compact('clients'));
+        return view('backend.client.edit', compact('clients'));
     }
 
    
@@ -87,7 +84,7 @@ class ClientController extends Controller
                 'alert-type' => 'error'
             );
         }
-        return redirect()->route('staff.client.index')->with($notification)->withInput();
+        return redirect()->route('admin.client.index')->with($notification)->withInput();
     }
 
     /**
@@ -185,7 +182,7 @@ class ClientController extends Controller
         $clients = Client::findorFail($id);
         $mediators = Mediator::get();
         $contacts = Contact::get();
-        return view('staff.client.addinformation',compact(['clients','request','mediators','contacts']));
+        return view('backend.client.addinformation',compact(['clients','request','mediators','contacts']));
     }
 
     public function storeinformation(Request $request)
@@ -236,6 +233,6 @@ class ClientController extends Controller
               'alert-type' => 'success'
           );
         }
-        return redirect()->route('staff.client.index')->with($pass);
+        return redirect()->route('admin.client.index')->with($pass);
     }
 }

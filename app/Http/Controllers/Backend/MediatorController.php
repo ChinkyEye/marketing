@@ -67,11 +67,9 @@ class MediatorController extends Controller
     
     public function update(Request $request, $id)
     {
-         // dd('gg');
-        $data_store =Mediator::find($id);
+        $data_store = Mediator::find($id);
         $data_store->name = $request->name;
         $data_store->phone = $request->phone;
-        // $data_store->update();
         if($data_store->update()){
             $notification = array(
                 'message' => $request->name.' updated successfully!',
@@ -86,12 +84,8 @@ class MediatorController extends Controller
         return redirect()->route('admin.mediator.index')->with($notification);
     }
 
-  
-    
-
-         public function destroy(mediator $mediator)
+    public function destroy(mediator $mediator)
     {
-        // dd($id);
         if($mediator->delete()){
             $notification = array(
               'message' => $mediator->name.' is deleted successfully!',
