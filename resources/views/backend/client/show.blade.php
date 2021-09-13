@@ -12,6 +12,12 @@
           <div class="card-body box-profile">
             <div class="text-center">
               <span><h4>{{$clients->fullname}}<h4></span>
+               @if($conclusions->first()->getProject)
+               <span class="text-info">
+                <small>
+                  ({{$conclusions->first()->getProject->name}})</small>
+                </span>
+                @endif
             </div>
             <h3 class="profile-username text-center"></h3>
 

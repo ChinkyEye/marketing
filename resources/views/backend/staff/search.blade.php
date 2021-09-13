@@ -45,6 +45,7 @@
                           <th width="5%">SN</th>
                           <th class="text-left">Client</th>
                           <th class="text-left">Address</th>
+                          <th class="text-left">Very First Meeting</th>
                           <th class="text-left">Created At</th>
                           <th>Status</th>
                         </tr>
@@ -54,6 +55,7 @@
                         <td>{{$key+1}}</td>
                         <td>{{$data->getClient->fullname}}</td>
                         <td>{{$data->getClient->address}}</td>
+                        <td>{{$data->first_meeting}}</td>
                         <td>{{$data->getClient->created_at->format('Y-m-d')}}   <span class="badge badge-success">{{$data->created_at->diffForHumans()}}</span></td>
                         <td class="text-center">
                            <a href="{{ route('admin.client.show',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="View Detail"><i class="fas fa-eye"></i>

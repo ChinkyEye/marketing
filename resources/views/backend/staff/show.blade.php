@@ -25,7 +25,7 @@
                 {{ csrf_field() }}
                 <div class="col-md">
                   <input type="hidden" name="staff_id" value="{{$users->id}}">
-                  <input type="date"  class="form-control max" id="from_date" placeholder="From Date" name="from_date"  autocomplete="off">
+                  <input type="date"  class="form-control max datepicker" id="from_date" placeholder="From Date" name="from_date"  autocomplete="off">
                 </div>
                 <div class="col-md">
                   <input type="date"  class="form-control max" id="to_date" placeholder="To Date" name="to_date"  autocomplete="off">

@@ -22,9 +22,9 @@
             <th>Phone No</th>
             <th>Address</th>
             <th>Email</th>
-            <th>Status</th>
             <th>Created At</th>
             <th>Created By</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead> 
@@ -35,21 +35,21 @@
           <td>{{$data->phone}}</td>
           <td>{{$data->address}}</td>
           <td>{{$data->email}}</td>
+          <td>{{$data->created_at->format('Y-m-d')}} <span class="badge badge-success">{{$data->created_at->diffForHumans()}}</span></td>
+          <td>{{$data->getUser->name}}</td>
           <td>
             <a href="{{route('staff.client.active',$data->id)}}" title="{{ $data->is_active == '1' ? 'Click to deactivate' : 'Click to activate' }}">
               <i class="fa {{ $data->is_active == '1' ? 'fa-check check-css' : 'fa-times cross-css' }}"></i>
             </a>
           </td>
-          <td>{{$data->created_at->format('Y-m-d')}} <span class="badge badge-success">{{$data->created_at->diffForHumans()}}</span></td>
-          <td>{{$data->getUser->name}}</td>
           <td>
             <a href="{{ route('staff.client.addinformation',$data->id)}}" class="btn btn-xs btn-outline-info" data-placement="top" title="Add Information"><i class="fas fa-plus"></i></a>
-            <a href="{{ route('staff.client.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
+            {{-- <a href="{{ route('staff.client.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>
             <form action="{{ route('staff.client.destroy',$data->id) }}" method="post" class="d-inline-block" data-placement="top" title="Permanent Delete">
               {{method_field('delete')}}
               {{ csrf_field() }}
               <button class="btn btn-xs btn-outline-danger" type="submit"><i class="fa fa-trash"></i></button>
-            </form>
+            </form> --}}
             <a href="{{ route('staff.client.show',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="View Detail"><i class="fas fa-eye"></i>
             </a>
           </td>
