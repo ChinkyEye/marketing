@@ -32,6 +32,6 @@ class Client extends Model
 
     public function getLatest()
     {
-        return $this->hasOne('App\Information','client_id','id')->latest('priority');
+        return $this->hasOne('App\Information','client_id','id')->latest();
     }
 }
