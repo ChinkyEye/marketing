@@ -30,7 +30,7 @@
 </section>
 <section class="content">
   <div class="card card-info">
-    <form role="form" method="POST" action="{{route('staff.client.storeinformation')}}" class="validate" id="validate">
+    <form role="form" method="POST" action="{{route('admin.client.storeinformation')}}" class="validate" id="validate">
       <div class="card-body">
         {{ csrf_field() }}
         <div class="row">
@@ -50,7 +50,7 @@
                 </select>
               </div> --}}
               <div class="form-group col">
-                <label for="mediator_name" class="control-label ">Full Name:</label>
+                <label for="mediator_name" class="control-label ">Full Name:<span class="text-danger">*</span></label>
                 <input type="text"  class="form-control max" id="mediator_name" name="mediator_name" placeholder="Enter mediator name">
               </div>
               <div class="form-group col">
@@ -65,13 +65,24 @@
           </div>
           <div class="form-group col-md-6">
             <label for="name">Next Meeting</label>
-            <input type="text"  class="form-control max" id="next_meeting" placeholder="Enter the address" name="next_meeting" autocomplete="off" autofocus>
+            <input type="text"  class="form-control max" id="next_meeting" placeholder="Enter the date" name="next_meeting" autocomplete="off" autofocus>
           </div>
-          <div class="form-group col-md-6">
-            <label for="name">Spend Time<span class="text-danger">*</span></label>
+          <div class="form-group col-md-4">
+             <label for="project_id" class="control-label">Project <span class="text-danger">*</span></label>
+            <select class="form-control" name="project_id" id="project_id">
+              <option value="">Select Project</option>
+              @foreach ($projects as $key => $project)
+              <option value="{{ $project->id }}" {{ old('project_id') == $project->id ? 'selected' : ''}}>
+                {{$project->name}}
+              </option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="name">Spend Time<span class="text-danger">*</span><small>(in minute)</small></label>
             <input type="text"  class="form-control max" id="spend_time" placeholder="Enter time spend" name="spend_time" autocomplete="off" autofocus>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="name">Time<span class="text-danger">*</span></label>
             <input type="time"  class="form-control max" id="time" placeholder="Enter time spend" name="time" autocomplete="off" autofocus>
           </div>
@@ -90,7 +101,7 @@
                 </select>
               </div> --}}
               <div class="form-group col">
-                <label for="phone_data" class="control-label ">Full Name:</label>
+                <label for="phone_data" class="control-label ">Full Name:<span class="text-danger">*</span></label>
                 <input type="text"  class="form-control max" id="c_name" placeholder="Enter phone no" name="c_name" s>
               </div>
               <div class="form-group col">
@@ -113,6 +124,27 @@
             </textarea>
           </div>
           <div class="form-group col-md-12">
+            <label for="priority">Priority:</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="priority" id="high" value="1"checked>
+              <label class="form-check-label" for="high">
+                High
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="priority" id="medium" value="2">
+              <label class="form-check-label" for="medium">
+                Medium
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="priority" id="low" value="3">
+              <label class="form-check-label" for="low">
+                Low
+              </label>
+            </div>
+          </div>
+          {{-- <div class="form-group col-md-12">
             <label>Priority</label>
             <div class="form-check">
               <input class="form-check-input" type="radio" name="checkbox" value="1">
@@ -126,7 +158,7 @@
               <input class="form-check-input" type="radio" name="checkbox" value="3">
               <label class="form-check-label">Low</label>
             </div> 
-          </div>
+          </div> --}}
       </div>
       </div>
       <div class="card-footer justify-content-between">
@@ -142,7 +174,6 @@
 $(document).ready(function(){
   var currentDate = NepaliFunctions.ConvertDateFormat(NepaliFunctions.GetCurrentBsDate(), "YYYY-MM-DD");
   $('#first_meeting').val(currentDate);
-  $('#next_meeting').val(currentDate);
   $('#first_meeting').nepaliDatePicker({
     ndpYear: true,
     ndpMonth: true,
@@ -160,13 +191,21 @@ $(document).ready(function(){
 <script>
 $().ready(function() {
   $("#validate").validate({
-    rules: {
+   rules: {
+      mediator_name: "required",
       spend_time: "required",
       time: "required",
+      c_name: "required",
+      description: "required",
+      project_id: "required",
     },
     messages: {
+      mediator_name: "name field is required",
       spend_time: "spent time field is required",
       time: "time field is required",
+      c_name: "name field is required",
+      description: "description is required",
+      project_id: "select Project",
     },
     highlight: function(element) {
      $(element).css('background', '#ffdddd');

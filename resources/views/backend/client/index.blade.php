@@ -23,6 +23,8 @@
             <th>Address</th>
             <th>Email</th>
             <th>Status</th>
+            <th>Created At</th>
+            <th>Created By</th>
             <th>Action</th>
           </tr>
         </thead> 
@@ -38,6 +40,8 @@
               <i class="fa {{ $data->is_active == '1' ? 'fa-check check-css' : 'fa-times cross-css' }}"></i>
             </a>
           </td>
+          <td>{{$data->created_at->format('Y-m-d')}} <span class="badge badge-success">{{$data->created_at->diffForHumans()}}</span></td>
+          <td>{{$data->getUser->name}}</td>
           <td>
             <a href="{{ route('admin.client.addinformation',$data->id)}}" class="btn btn-xs btn-outline-info" data-placement="top" title="Add Information"><i class="fas fa-plus"></i></a>
             <a href="{{ route('admin.client.edit',$data->id) }}" class="btn btn-xs btn-outline-info" data-placement="top" title="Update"><i class="fas fa-edit"></i></a>

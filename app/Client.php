@@ -10,6 +10,11 @@ class Client extends Model
         'fullname', 'address','phone','is_active','sort_id','email','created_at_np','created_by','updated_by'
     ];
 
+    public function getUser()
+    {
+        return $this->belongsTo('App\User','created_by','id');
+    }
+
     public function getInformation()
     {
         return $this->hasMany('App\Information','client_id','id');
@@ -23,5 +28,10 @@ class Client extends Model
     public function getFirstInformation()
     {
         return $this->hasOne('App\Information','client_id','id')->where('count','1');
+    }
+
+    public function getLatest()
+    {
+        return $this->hasOne('App\Information','client_id','id')->latest('priority');
     }
 }

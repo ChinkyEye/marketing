@@ -20,7 +20,9 @@ class CreateInformationTable extends Migration
             $table->integer('mediator_id')->unsigned();
             $table->foreign('mediator_id')->references('id')->on('mediators');
             $table->integer('contact_id')->unsigned();
-            $table->foreign('contact_id')->references('id')->on('contacts');
+            $table->foreign('contact_id')->references('id')->on('contacts'); 
+            $table->integer('project_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects');
             $table->text('description')->nullable();
             $table->string('first_meeting');
             $table->string('next_meeting')->nullable();

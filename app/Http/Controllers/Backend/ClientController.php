@@ -10,6 +10,7 @@ use App\Information;
 use App\Mediator;
 use App\Contact;
 use App\ClientHasInfo;
+use App\Project;
 use Auth;
 use Response;
 
@@ -33,9 +34,6 @@ class ClientController extends Controller
     {
         $this->validate($request, [
         'fullname' => 'required',
-        'address' => 'required',
-        'phone' => 'required',
-        'email' => 'required',
         ]);
 
         $clients= Client::create([
@@ -46,10 +44,12 @@ class ClientController extends Controller
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);
-        $pass = array(
-          'message' => 'Data added successfully!',
-          'alert-type' => 'success'
-        );
+        if($clients->save()){
+            $pass = array(
+              'message' => 'Data added successfully!',
+              'alert-type' => 'success'
+          );
+        }
         return redirect()->route('admin.client.index')->with($pass);
     }
 
@@ -182,7 +182,8 @@ class ClientController extends Controller
         $clients = Client::findorFail($id);
         $mediators = Mediator::get();
         $contacts = Contact::get();
-        return view('backend.client.addinformation',compact(['clients','request','mediators','contacts']));
+        $projects = Project::get();
+        return view('backend.client.addinformation',compact(['clients','request','mediators','contacts','projects']));
     }
 
     public function storeinformation(Request $request)
@@ -213,6 +214,7 @@ class ClientController extends Controller
                     'client_id' => $request['client_id'],
                     'contact_id' => $contact->id,
                     'mediator_id' => $mediators->id,
+                    'project_id' => $request['project_id'],
                     'first_meeting' => $request['first_meeting'],
                     'next_meeting' => $request['first_meeting'],
                     'spend_time' => $request['spend_time'],

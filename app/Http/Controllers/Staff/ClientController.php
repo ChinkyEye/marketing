@@ -10,6 +10,7 @@ use App\Information;
 use App\Mediator;
 use App\Contact;
 use App\ClientHasInfo;
+use App\Project;
 use Auth;
 use Response;
 
@@ -34,9 +35,6 @@ class ClientController extends Controller
     {
         $this->validate($request, [
         'fullname' => 'required',
-        'address' => 'required',
-        'phone' => 'required',
-        'email' => 'required',
         ]);
 
         $clients= Client::create([
@@ -47,10 +45,12 @@ class ClientController extends Controller
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);
-        $pass = array(
-          'message' => 'Data added successfully!',
-          'alert-type' => 'success'
-        );
+        if($clients->save()){
+            $pass = array(
+              'message' => 'Data added successfully!',
+              'alert-type' => 'success'
+          );
+        }
         return redirect()->route('staff.client.index')->with($pass);
     }
 
@@ -59,7 +59,9 @@ class ClientController extends Controller
     {
         $clients = Client::findorFail($id);
         $conclusions = Information::where('created_by', Auth::user()->id)
-                                    ->where('client_id',$id)->get();
+                                    ->where('client_id',$id)
+                                    ->get();
+                                    // dd($conclusions->first());
                                     // dd($clients->getClientInfo);
         return view('staff.client.show',compact(['clients','conclusions']));
     }
@@ -185,14 +187,15 @@ class ClientController extends Controller
         $clients = Client::findorFail($id);
         $mediators = Mediator::get();
         $contacts = Contact::get();
-        return view('staff.client.addinformation',compact(['clients','request','mediators','contacts']));
+        $projects = Project::get();
+        return view('staff.client.addinformation',compact(['clients','request','mediators','contacts','projects']));
     }
 
     public function storeinformation(Request $request)
     {
+        // dd($request->project_id);
         $this->validate($request, [
             'mediator_name' => 'required',
-            'mediator_phone' => 'required',
         ]);
         try{
             return DB::transaction(function() use ($request)
@@ -215,11 +218,12 @@ class ClientController extends Controller
                     'client_id' => $request['client_id'],
                     'contact_id' => $contact->id,
                     'mediator_id' => $mediators->id,
+                    'project_id' => $request['project_id'],
                     'first_meeting' => $request['first_meeting'],
                     'next_meeting' => $request['first_meeting'],
                     'spend_time' => $request['spend_time'],
                     'time' => $request['time'],
-                    'priority' =>$request['checkbox'],
+                    'priority' =>$request['priority'],
                     'description' => $request['description'],
                 // 'count' => '1',
                     'created_by' => Auth::user()->id,

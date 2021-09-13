@@ -15,10 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::namespace('Backend')->prefix('home')->name('admin.')->middleware(['admin','auth'])->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('staff/search', 'StaffController@StaffSearch')->name('staffwork.search');
+    Route::resource('/staff', 'StaffController');
     Route::resource('/project', 'ProjectController');
     Route::get('/project/active/{id}', 'ProjectController@isActive')->name('project.active');
      //mediator

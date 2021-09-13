@@ -45,6 +45,7 @@ class ScheduleController extends Controller
      */
     public function store(Request $request,$id)
     {
+        // dd($request);
         $mediator_id = Information::where('client_id',$id)->value('mediator_id');
         $contact_id = Information::where('client_id',$id)->value('contact_id');
         $this->validate($request, [
@@ -55,11 +56,12 @@ class ScheduleController extends Controller
         'client_id' => $id,
         'mediator_id' => $mediator_id,
         'contact_id' => $contact_id,
+        'project_id' => $request['project_id'],
         'description' => $request['description'],
         'first_meeting' => $request['first_meeting'],
         'next_meeting' => $request['next_meeting'],
         'allocated_time' => $request['allocated_time'],
-        'priority' => $request['checkbox'],
+        'priority' => $request['priority'],
         'created_by' => Auth::user()->id,
         'created_at_np' => date("H:i:s"),
         ]);

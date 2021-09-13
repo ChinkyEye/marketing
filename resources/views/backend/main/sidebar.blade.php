@@ -19,6 +19,12 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
+          <a href="{{ route('admin.staff.index')}}" class="nav-link {{ (request()->is('home/staff*')) ? 'active' : '' }}">
+            <i class="fas fa-user nav-icon"></i>
+            <p>Staff</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{ route('admin.project.index')}}" class="nav-link {{ (request()->is('home/project*')) ? 'active' : '' }}">
             <i class="fas fa-tasks nav-icon"></i>
             <p>Project</p>
@@ -31,13 +37,13 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('admin.contact.index')}}" class="nav-link {{ (request()->is('staff/contact*')) ? 'active' : '' }}">
+          <a href="{{route('admin.contact.index')}}" class="nav-link {{ (request()->is('home/contact*')) ? 'active' : '' }}">
             <i class="far fa-user nav-icon"></i>
             <p>Contact Person</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{route('admin.client.index')}}" class="nav-link {{ (request()->is('staff/client*')) ? 'active' : '' }}">
+          <a href="{{route('admin.client.index')}}" class="nav-link {{ (request()->is('home/client*')) ? 'active' : '' }}">
             <i class="nav-icon fa fa-th"></i>
             <p>Client</p>
           </a>

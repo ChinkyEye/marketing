@@ -12,6 +12,13 @@
           <div class="card-body box-profile">
             <div class="text-center">
               <span><h4>{{$clients->fullname}}<h4></span>
+                @if($conclusions->first()->getProject)
+                <span class="text-info">
+                  <small>
+                    ({{$conclusions->first()->getProject->name}})</small>
+                </span>
+                @endif
+               
             </div>
             <h3 class="profile-username text-center"></h3>
 
@@ -24,6 +31,22 @@
               </li>
               <li class="list-group-item">
                 <b>Email</b> <a class="float-right">{{$clients->email}}</a>
+              </li>
+              <li class="list-group-item">
+                <b>Priority</b>
+                {{-- <a href="" class="btn btn-xs"></a> --}}
+                @php
+                if($clients->getLatest->priority == '1'){
+                  $display="High";
+                }
+                elseif($clients->getLatest->priority == '2'){
+                  $display="Medium";
+                }
+                else{
+                  $display="Low";
+                }
+                @endphp
+                <a href="" style="float: right;"><i class="fas fa-square {{$clients->getLatest->priority == '1'? 'text-danger': ($clients->getLatest->priority == '2'? 'text-warning' : 'text-success') }}">{{$display}}</i></a>
               </li>
             </ul>
           </div>
@@ -110,6 +133,8 @@
               <div class="tab-pane" id="newschedule">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.storeschedule',$clients->id)}}" class="validate" id="validate">
                   {{ csrf_field() }}
+                  {{-- <input type="text" name="project_id" value="@foreach($clients->getInformation as $key =>$data) {{$data->project_id}} @endforeach"> --}}
+                  <input type="hidden" name="project_id" value="{{$conclusions->first()->project_id}}">
                   <div class="form-group row">
                     <label for="inputName" class="col-sm-2 col-form-label">Conclusion</label>
                     <div class="col-sm-10">
@@ -124,31 +149,39 @@
                   </div>
                   <div class="form-group row">
                     <label for="inputEmail" class="col-sm-2 col-form-label">Schedule Time</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-4">
                       <input type="time" class="form-control" id="allocated_time" name="allocated_time" placeholder="Time">
+                    </div>
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Spend Time</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="spend_time" name="spend_time" placeholder="Spend time in min">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="inputName2" class="col-sm-2 col-form-label">Next Meeting Date</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="next_meeting" name="next_meeting" placeholder="Name">
+                      <input type="text" class="form-control" id="next_meeting" name="next_meeting" placeholder="Next Meeting Date">
                     </div>
                   </div>
-                  <div class="form-group row">
-                    <label for="inputName2" class="col-sm-2 col-form-label">Priority</label>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="checkbox" value="1">
-                        <label class="form-check-label">High</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="checkbox" value="2">
-                        <label class="form-check-label">Medium</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="checkbox" value="3">
-                        <label class="form-check-label">Low</label>
-                      </div> 
+                  <div class="form-group col-md-12">
+                    <label for="priority">Priority:</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="priority" id="high" value="1"checked>
+                      <label class="form-check-label" for="high">
+                        High
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="priority" id="medium" value="2">
+                      <label class="form-check-label" for="medium">
+                        Medium
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="priority" id="low" value="3">
+                      <label class="form-check-label" for="low">
+                        Low
+                      </label>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -181,7 +214,7 @@
 $(document).ready(function(){
   var currentDate = NepaliFunctions.ConvertDateFormat(NepaliFunctions.GetCurrentBsDate(), "YYYY-MM-DD");
   $('#first_meeting').val(currentDate);
-  $('#next_meeting').val(currentDate);
+  // $('#next_meeting').val(currentDate);
   $('#first_meeting').nepaliDatePicker({
     ndpYear: true,
     ndpMonth: true,
@@ -203,11 +236,13 @@ $().ready(function() {
       fullname: "required",
       description: "required",
       allocated_time: "required",
+      spend_time: "required",
     },
     messages: {
       fullname: "name field is required",
       description: "description field is required",
       allocated_time: "time field is required",
+      spend_time: "time is required",
     },
     highlight: function(element) {
      $(element).css('background', '#ffdddd');
